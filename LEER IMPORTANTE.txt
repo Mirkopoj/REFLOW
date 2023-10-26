@@ -1,0 +1,4 @@
+LOS ARCHIVOS REFLOWDebug.cof y REFLOWDebug.hex, imprimer en el LCD, durante la etapa de soldad, la temperatura medida y el set pooin cada 10 saturaciones del Timer1
+Estos se utilizaron a modo de debug, pero podrian resultar utiles para la corrección.
+
+Los archivos REFLOW.cof y REFLOW.hex son las versiones finales.

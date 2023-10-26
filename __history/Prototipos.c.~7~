@@ -1,0 +1,78 @@
+#ifndef _PROTOS
+#define _PROTOS
+//Prototipos
+void SeleccionDePerfil();
+   void Perfil_Crear();
+   void Perfil_Cargar();
+   void Perfil_Editar();
+   void Perfil_Volver();
+void CargarValores();
+void Configuracion();
+   void Config_Tiempo();
+      void Config_Tiempo_Formato();
+         void Config_Tiempo_Formato_mmss();
+         void Config_Tiempo_Formato_ssss();
+         void Config_Tiempo_Formato_Volver();
+      void Config_Tiempo_Origen();
+         void Config_Tiempo_Origen_Absoluto();
+         void Config_Tiempo_Origen_Relativo();
+         void Config_Tiempo_Origen_Volver();
+      void Config_Tiempo_Volver();
+   void Config_Temp();
+      void Config_Temp_C();
+      void Config_Temp_F();
+      void Config_Temp_Volver();
+   void Config_Idioma();
+      void Config_Idioma_Es();
+      void Config_Idioma_En();
+      void Config_Idioma_Fr();
+      void Config_Idioma_Ru();
+      void Config_Idioma_Volver();
+   void Config_Volver();
+void CargarPunto();
+void Iniciar();
+void PuntoNoValido();
+void OtroPunto();
+void Soldando();
+void Cancelar();
+void Terminado();
+
+//Numerando los estados para el switch
+enum{
+    _SeleccionDePerfil,
+       _Perfil_Crear,
+       _Perfil_Cargar,
+       _Perfil_Editar,
+       _Perfil_Volver,
+    _CargarValores,
+    _Configuracion,
+       _Config_Tiempo,
+          _Config_Tiempo_Formato,
+             _Config_Tiempo_Formato_mmss,
+             _Config_Tiempo_Formato_ssss,
+             _Config_Tiempo_Formato_Volver,
+          _Config_Tiempo_Origen,
+             _Config_Tiempo_Origen_Absoluto,
+             _Config_Tiempo_Origen_Relativo,
+             _Config_Tiempo_Origen_Volver,
+          _Config_Tiempo_Volver,
+       _Config_Temp,
+          _Config_Temp_C,
+          _Config_Temp_F,
+          _Config_Temp_Volver,
+       _Config_Idioma,
+          _Config_Idioma_Es,
+          _Config_Idioma_En,
+          _Config_Idioma_Fr,
+          _Config_Idioma_Ru,
+          _Config_Idioma_Volver,
+       _Config_Volver,
+    _CargarPunto,
+    _Iniciar,
+    _PuntoNoValido,
+    _OtroPunto,
+    _Soldando,
+    _Cancelar,
+    _Terminado
+};
+#endif

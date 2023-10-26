@@ -1,0 +1,313 @@
+
+ROM used:   26368/32768 (80%)
+            32764/32768 (100%) including unused fragments
+
+            7.5 Average locations per line
+            16.8 Average locations per statement
+
+RAM used:   431/2048 (21%) at main() level
+            535/2048 (26%) worst case
+
+Stack used: 11 worst case (9 in main + 2 for interrupts)
+Stack size: 31
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  138    85   5  REFLOW_2550.c
+  779     0   0  D:\Program Files (x86)\PICC\Devices\18f2550.h
+  121     0   0  Globales_y_defs_2550.c
+  543   189  12  ST7789.c
+  168     0   0  D:\Program Files (x86)\PICC\Drivers\stdint.h
+  114   107   7  Pad.c
+  753   584  37  Estados_2550.c
+   79     0   0  Prototipos.c
+  815   609  39  Auxiliares_Estados_2550.c
+----- -----
+ 3510  1574 Total
+
+Page ROM  %  RAM    Vol Diff  Functions:
+---- --- --- ---    --- ----  ----------
+0     30   0    7             @READ_PROGRAM_MEMORY
+0     40   0    1             @delay_ms1
+0     16   0    3             @SPI_XFER_1_8
+0      6   0    0     22  0.8  startWrite
+0      6   0    0     22  0.8  endWrite
+0     16   0    1     70  1.6  writeCommand
+0    324   1    7    511  6.6  displayInit
+0     88   0    0    323  1.8  tft_init
+0    140   0   10    747  4.8  setAddrWindow
+0    214   0    3   1224  6.8  setRotation
+0     34   0    0             @goto28958
+0     44   0    3             @DIV88
+0     86   0    7    279  4.2  drawPixel
+0    160   0   10    595  7.7  drawHLine
+0    126   0    9    505  6.7  drawVLine
+0    258   0   17    743  7.7  fillRect
+0     92   0   14             @MUL3232
+0     30   0    2     61  1.6  fillScreen
+0    142   0   12    494  7.5  printDisp
+0    360   1    3   1517  8.3  tft_putc
+0     34   0    5             @MUL1616
+0     26   0    2    103  2.8  tft_gotoxy
+0    182   0    1   1913  3.4  isr_ext2
+0     68   0    2    491  3.8  isr_timer0
+0     34   0    1    221  2.7  tecl_mode
+0     24   0    0     90  1.1  tecl_init
+0    468   1    9    819  6.7  HeatMap
+0     70   0    5             @DIV1616
+0   2618   5   40   2821 11.7  Graf
+0     54   0    2             @ITOF
+0    350   1   14             @DIVFF
+0    632   1   16             @ADDFF
+0    246   0   11             @MULFF
+0    122   0   10             @FLT
+0     60   0    4             @SFTOI
+0    126   0    2    298  2.8  GrafFrame
+0    380   1   14    917  8.4  GrafData
+0    198   0    9             @PRINTF_LU_694
+0    128   0    5    215  5.0  perfilVacio
+0    196   0    4    791  5.7  printVacio
+0      8   0    0             @const886
+0     32   0    2             @PSTRINGC_694
+0      6   0    0             @const891
+0      6   0    0             @const892
+0      6   0    0             @const893
+0      6   0    0             @const894
+0      8   0    0             @const895
+0     34   0    0             @goto29720
+0    678   1   18   1355 11.8  GrafPerfil
+0     36   0    2    129  2.2  Cursor
+0     32   0    2     99  3.3  printEspacios
+0      2   0    0             @const914
+0     62   0    0    268  4.3  printPerfilesLit
+0     10   0    0             @const916
+0     10   0    0             @const917
+0      8   0    0             @const918
+0      8   0    0             @const919
+0     34   0    0             @goto29806
+0     62   0    0    268  4.3  printConfiguracionLit
+0     14   0    0             @const922
+0     10   0    0             @const923
+0     12   0    0             @const924
+0     10   0    0             @const925
+0     34   0    0             @goto29828
+0     82   0    0    293  4.3  printTiempoLit
+0      8   0    0             @const928
+0      6   0    0             @const929
+0      6   0    0             @const930
+0      8   0    0             @const931
+0     34   0    0             @goto29851
+0     82   0    0    293  4.3  printTemperaturaLit
+0     12   0    0             @const934
+0      6   0    0             @const935
+0      6   0    0             @const936
+0      8   0    0             @const937
+0     34   0    0             @goto29873
+0     82   0    0    293  4.3  printIdiomaLit
+0      8   0    0             @const940
+0     10   0    0             @const941
+0      8   0    0             @const942
+0      8   0    0             @const943
+0     34   0    0             @goto29896
+0     82   0    0    293  4.3  printFormatoLit
+0      8   0    0             @const946
+0      8   0    0             @const947
+0      8   0    0             @const948
+0      8   0    0             @const949
+0     34   0    0             @goto29919
+0     82   0    0    293  4.3  printOrigenLit
+0      8   0    0             @const952
+0     10   0    0             @const953
+0      8   0    0             @const954
+0     10   0    0             @const955
+0     34   0    0             @goto29941
+0     74   0    0    318  4.4  printVolver
+0      8   0    0             @const958
+0      8   0    0             @const959
+0     10   0    0             @const960
+0     14   0    0             @const961
+0     34   0    0             @goto29966
+0     12   0    0     33  1.5  printInit
+0      4   0    0             @const964
+0     40   0    1     76  2.4  printDobleEndl
+0      2   0    0             @const967
+0    206   0    0    929  4.8  printMenuPrincipal
+0     16   0    0             @const970
+0     10   0    0             @const971
+0     16   0    0             @const972
+0     14   0    0             @const973
+0     34   0    0             @goto30006
+0     16   0    0             @const975
+0     12   0    0             @const976
+0     16   0    0             @const977
+0     18   0    0             @const978
+0     34   0    0             @goto30025
+0     60   0    0    163  2.1  printPerfiles
+0     18   0    0             @const984
+0     74   0    0    187  1.8  printConfiguracion
+0     76   0    0    187  1.8  printTiempo
+0    208   0    0    558  4.2  printFormato
+0      6   0    0             @const988
+0      6   0    0             @const989
+0      4   0    0             @const990
+0    248   0    0    926  4.8  printOrigen
+0     10   0    0             @const994
+0     10   0    0             @const995
+0      8   0    0             @const996
+0     12   0    0             @const997
+0     34   0    0             @goto30096
+0     10   0    0             @const999
+0      8   0    0             @const1000
+0      8   0    0             @const1001
+0     12   0    0             @const1002
+0     34   0    0             @goto30115
+0    148   0    0    280  2.2  printTemperatura
+0    190   0    0    464  2.3  printIdioma
+0      8   0    0             @const1008
+0      8   0    0             @const1009
+0     10   0    0             @const1010
+0      8   0    0             @const1011
+0    140   0    1    494  5.1  printSoldando
+0     10   0    0             @const1013
+0     10   0    0             @const1014
+0      8   0    0             @const1015
+0      6   0    0             @const1016
+0     34   0    0             @goto30163
+0      4   0    0             @const1018
+0    146   0    1    508  5.1  printCancelar
+0     10   0    0             @const1020
+0      8   0    0             @const1021
+0      8   0    0             @const1022
+0     10   0    0             @const1023
+0     34   0    0             @goto30189
+0      2   0    0             @const1025
+0    130   0    1    453  5.0  printTermiando
+0     10   0    0             @const1027
+0      6   0    0             @const1028
+0     10   0    0             @const1029
+0     12   0    0             @const1030
+0     34   0    0             @goto30217
+0     84   0    0    293  4.3  printIniciar
+0     10   0    0             @const1033
+0      6   0    0             @const1034
+0     10   0    0             @const1035
+0     10   0    0             @const1036
+0     34   0    0             @goto30240
+0      2   0    0             @const1038
+0    108   0    0    331  4.4  printOtroPunto
+0     12   0    0             @const1041
+0     14   0    0             @const1042
+0     12   0    0             @const1043
+0     14   0    0             @const1044
+0     34   0    0             @goto30267
+0      2   0    0             @const1046
+0    128   0    5    472  4.2  print_temp
+0      4   0    0             @const1051
+0      4   0    0             @const1052
+0    248   0    8    660  5.8  print_tiempo
+0    200   0    6             @PRINTF_D0_694
+0   1016   2   12   1482 11.6  guardarPuntos
+0    632   1   11   1730 12.5  CargarTemperatura
+0    398   1    6    534  8.1  CargarMinutos
+0    232   0    7    524  7.1  CargarSegundos
+0    308   1    6    476  7.5  CargarTiempo
+0    332   1   14    730  9.2  CheckearSiValido
+0     74   0    0     37  2.3  isr_timer1
+0     14   0    0     69  1.9  timer1_init
+0     24   0    0     61  2.3  adc_init
+0    596   1   18    645  9.9  MedirTemp
+0    106   0    7    198  4.5  curva_init
+0     52   0    0    176  3.9  SeleccionDePerfil
+0    736   1    7   3251 11.4  Perfiles
+0      8   0    0             @const1113
+0      8   0    0             @const1114
+0      8   0    0             @const1115
+0      8   0    0             @const1116
+0     34   0    0             @goto30611
+0    200   0    6             @PRINTF_D_694
+0      6   0    0             @const1123
+0      8   0    0             @const1124
+0      6   0    0             @const1125
+0     10   0    0             @const1126
+0     34   0    0             @goto30655
+0      8   0    0             @const1128
+0      6   0    0             @const1129
+0      8   0    0             @const1130
+0     10   0    0             @const1131
+0     34   0    0             @goto30677
+0      8   0    0             @const1133
+0      6   0    0             @const1134
+0      8   0    0             @const1135
+0     14   0    0             @const1136
+0     34   0    0             @goto30696
+0     38   0    0    141  3.4  Perfil_Crear
+0     52   0    0    176  3.9  Perfil_Cargar
+0     54   0    0    176  3.9  Perfil_Editar
+0     54   0    0    176  3.9  Perfil_Volver
+0     94   0    4    328  4.9  CargarValores
+0     18   0    0             @const1140
+0     64   0    1    270  5.5  Configuracion
+0     56   0    0    193  4.0  Config_Tiempo
+0     54   0    0    193  4.0  Config_Tiempo_Formato
+0    152   0    2    333  5.5  Config_Tiempo_Formato_ssss
+0    152   0    2    333  5.5  Config_Tiempo_Formato_mmss
+0     56   0    0    193  4.0  Config_Tiempo_Formato_Volver
+0     56   0    0    193  4.0  Config_Tiempo_Origen
+0    152   0    2    333  5.5  Config_Tiempo_Origen_Relativo
+0    154   0    2    333  5.5  Config_Tiempo_Origen_Absoluto
+0     56   0    0    193  4.0  Config_Tiempo_Origen_Volver
+0     56   0    0    193  4.0  Config_Tiempo_Volver
+0     56   0    0    193  4.0  Config_Temp
+0    150   0    2    333  5.5  Config_Temp_C
+0    154   0    2    333  5.5  Config_Temp_F
+0     58   0    0    193  4.0  Config_Temp_Volver
+0     56   0    0    193  4.0  Config_Idioma
+0    152   0    2    352  5.5  Config_Idioma_Es
+0    156   0    2    352  5.5  Config_Idioma_En
+0    156   0    2    352  5.5  Config_Idioma_Fr
+0    156   0    2    352  5.5  Config_Idioma_Ru
+0     58   0    0    193  4.0  Config_Idioma_Volver
+0     58   0    0    193  4.0  Config_Volver
+0    478   1   10   1585  8.4  CargarPunto
+0      6   0    0             @const1148
+0      6   0    0             @const1149
+0      6   0    0             @const1150
+0      6   0    0             @const1151
+0     34   0    0             @goto31199
+0    256   0    7    679  7.2  Iniciar
+0    168   0    1    592  6.5  PuntoNoValido
+0     16   0    0             @const1158
+0     16   0    0             @const1159
+0     18   0    0             @const1160
+0     24   0    0             @const1161
+0     34   0    0             @goto31263
+0    148   0    6    485  6.6  OtroPunto
+0   2562   5   43   3436 14.2  Soldando
+0     58   0    4             @DTOF
+0    102   0    3    330  5.1  Terminado
+0   1108   2   54   3237  7.4  MAIN
+0     96   0    0             @goto31454
+ Inline         1             @cinit1
+
+Program metrics:
+    Functions               100
+    Statements              1574
+    Comments                515
+    Volume (V)              108684
+    Difficulty (D)          498.0
+    Effort to implement (E) 54124581
+    Time to implement (T)   835 hours, 15 minutes
+    Est Delivered Bugs (B)  48
+    Cyclomatic Complexity   341
+    Maintainability (MI)    71
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00002     4  0  
+00004-00006     0  4  
+00008-000C4   190  0  
+000C6-07FDA  26138  6396  
+07FDC-07FFE    36  0  
+
+
+

@@ -1,0 +1,68 @@
+
+ROM used:   2876/32768 (9%)
+            32768/32768 (100%) including unused fragments
+
+            1.8 Average locations per line
+            14.7 Average locations per statement
+
+RAM used:   478/2048 (23%) at main() level
+            505/2048 (25%) worst case
+
+Stack used: 6 worst case (6 in main + 0 for interrupts)
+Stack size: 31
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  142    19  10  Test display.c
+  779     0   0  D:\Program Files (x86)\PICC\Devices\18f2550.h
+  530   177  90  ST7789.c
+  168     0   0  D:\Program Files (x86)\PICC\Drivers\stdint.h
+----- -----
+ 1619   196 Total
+
+Page ROM  %  RAM    Vol Diff  Functions:
+---- --- --- ---    --- ----  ----------
+0     34   1    7             @READ_PROGRAM_MEMORY
+0     40   1    1             @delay_ms1
+0     16   0    3    760  4.5  @SPI_XFER_1_8
+0      6   0    0     22  0.8  startWrite
+0      6   0    0     22  0.8  endWrite
+0     16   0    1     70  1.6  writeCommand
+0    324   6    7    511  6.6  displayInit
+0     56   1    0    207  1.8  tft_init
+0    116   2    5    515  3.4  setAddrWindow
+0    216   4    3   1224  6.8  setRotation
+0     34   1    0    279  4.2  @goto793
+0     44   1    3    595  7.7  @DIV88
+0     78   1    6    279  4.2  drawPixel
+0    124   2    8    595  7.7  drawHLine
+0    170   3   12    743  7.7  fillRect
+0     34   1    5     70  2.0  @MUL1616
+0     30   1    2     61  1.6  fillScreen
+0     28   0    2     70  2.0  invertDisplay
+0    138   2   12    494  7.5  printDisp
+0    340   6    3   1308  7.8  tft_putc
+0    862  15    0    728  2.9  MAIN
+0    124   2    2    461  3.3  @PRINTF_U_684
+ Inline         0    370  7.0  @cinit1
+
+Program metrics:
+    Functions               21
+    Statements              196
+    Comments                668
+    Volume (V)              15826
+    Difficulty (D)          92.6
+    Effort to implement (E) 1465918
+    Time to implement (T)   22 hours, 37 minutes
+    Est Delivered Bugs (B)  4
+    Cyclomatic Complexity   44
+    Maintainability (MI)    132
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00002     4  0  
+00004-07FDA  2836  29892  
+07FDC-07FFE    36  0  
+
+
+

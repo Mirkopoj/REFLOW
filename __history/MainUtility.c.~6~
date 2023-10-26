@@ -1,0 +1,47 @@
+#ifndef _MAIN_UTILITY
+#define _MAIN_UTILITY
+void print_status(int s){
+   switch(s){
+      case 1:
+         TX_COLOR = ST7789_GREEN;
+         printf(tft_putc,"OK");
+         break;
+      case -1:
+         TX_COLOR = ST7789_RED;
+         printf(tft_putc,"ERROR");
+      case 0:
+         TX_COLOR = ST7789_YELLOW;
+         printf(tft_putc,"ABNORMAL");
+   }
+   TX_COLOR = ST7789_WHITE;
+   return;
+}
+void init_sequence(){
+   int status = 1;
+   ON(CS2);
+   tft_init();
+   delay_ms(1);
+   
+   printf(tft_putc,"\fDISPLAY TFT: ");
+   print_status(status);
+   printf(tft_putc,"\nINICIANDO TECLADO");
+   tecl_init();
+   printf(tft_putc,"\nTECLADO: ");
+   print_status(status);
+   printf(tft_putc,"\nINICIANDO TC77");
+   delay_ms(400);
+   
+   float Temperatura=0;
+   int M_ID;
+   M_ID = tc77_init(&Temperatura);
+   printf(tft_putc,"\nTEMP:%f\nM_ID:%x\nMANUFACTURER: ",Temperatura, M_ID);
+   if(M_ID==0x54) printf(tft_putc,"MICROCHIP");
+   else printf(tft_putc,"UNKNOWN");
+   printf(tft_putc,"\nTC77: ");
+   if(M_ID!=0x54) status = 0;
+   if(Temperatura <= -99) status = -1;
+   print_status(status);
+   printf(tft_putc,"\n\nHORNO LISTO");
+   delay_ms(1);
+}
+#endif

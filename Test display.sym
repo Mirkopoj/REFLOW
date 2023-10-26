@@ -1,0 +1,168 @@
+000     @SCRATCH
+001     @SCRATCH
+001     _RETURN_
+002     @SCRATCH
+003     @SCRATCH
+004-1CA letra
+1CB     _width
+1CC     _height
+1CD     _xstart
+1CE     _ystart
+1CF     _colstart
+1D0     _rowstart
+1D1     rotation
+1D2     X_MAX
+1D3     X_BEGIN
+1D4     Y_MAX
+1D5     Y_BEGIN
+1D6     x
+1D7     Y
+1D8     CARRIAGE
+1D9-1DA TX_COLOR
+1DB-1DC BG_COLOR
+1DD.0   Cursor
+1DE     @PRINTF_U_684.P1
+1DE-1DF displayInit.addr
+1DE     setRotation.m
+1DE     invertDisplay.i
+1DE-1DF fillScreen.color
+1DF     @PRINTF_U_684.P1
+1DF     setRotation.madctl
+1DF     invertDisplay.@SCRATCH1
+1E0     displayInit.numCommands
+1E0     tft_putc.c
+1E0     setRotation.@SCRATCH1
+1E1     drawHLine.x
+1E1     fillRect.x
+1E1     displayInit.numArgs
+1E1     tft_putc.@SCRATCH1
+1E2-1E3 displayInit.ms
+1E2     drawHLine.Y
+1E2     fillRect.Y
+1E2     tft_putc.@SCRATCH2
+1E3     printDisp.x
+1E3     fillRect.w
+1E3     drawHLine.w
+1E3     @DIV88.P1
+1E4     printDisp.Y
+1E4     fillRect.h
+1E4     @DIV88.P1
+1E4-1E5 drawHLine.color
+1E4     displayInit.@SCRATCH1
+1E5     @delay_ms1.P1
+1E5-1E6 @READ_PROGRAM_MEMORY.P2
+1E5-1E6 printDisp.f_color
+1E5-1E6 fillRect.color
+1E5     @DIV88.@SCRATCH1
+1E6     drawHLine.hi
+1E7     drawHLine.lo
+1E7-1E8 printDisp.b_color
+1E7     fillRect.hi
+1E8     fillRect.lo
+1E8     drawHLine.@SCRATCH1
+1E9-1EA fillRect.px
+1E9-1EA printDisp.ch
+1EB     printDisp.i
+1EB     fillRect.@SCRATCH1
+1EC     printDisp.j
+1EC     fillRect.@SCRATCH2
+1ED-1EE @MUL1616.P1
+1ED     printDisp.@SCRATCH1
+1EE     printDisp.@SCRATCH2
+1EF-1F0 @MUL1616.P1
+1EF     drawPixel.x
+1F0     drawPixel.Y
+1F1-1F2 drawPixel.color
+1F1     @MUL1616.@SCRATCH1
+1F3     setAddrWindow.x
+1F3     drawPixel.@SCRATCH1
+1F4     setAddrWindow.Y
+1F4     drawPixel.@SCRATCH2
+1F5     setAddrWindow.w
+1F6     setAddrWindow.h
+1F7     writeCommand.cmd
+1F7     setAddrWindow.@SCRATCH1
+1F8     @SPI_XFER_1_8.P1
+FB4.6   C1OUT
+FB4.7   C2OUT
+FBB     CCP_2
+FBB     CCP_2_LOW
+FBC     CCP_2_HIGH
+FBE     CCP_1_LOW
+FBE     CCP_1
+FBF     CCP_1_HIGH
+FE1-FE2 @WRITE_PACKED_MEMORY.P1
+FE1-FE2 @READ_PACKED_MEMORY.P2
+FE9-FEA @WRITE_PROGRAM_MEMORY.P1
+FE9-FEA @READ_PROGRAM_MEMORY.P2
+FE9-FEA @READ_PACKED_MEMORY.P3
+FE9-FEA @WRITE_PACKED_MEMORY.P4
+FF6-FF8 @READ_PROGRAM_MEMORY.P1
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
+
+ROM Allocation:
+000004  startWrite
+00000A  @READ_PROGRAM_MEMORY
+00002C  @SPI_XFER_1_8
+00003C  writeCommand
+00004C  @delay_ms1
+000074  endWrite
+00007A  displayInit
+0001BE  @DIV88
+0001EA  setRotation
+0002C2  @goto793
+0002E4  invertDisplay
+000300  tft_init
+000338  setAddrWindow
+0003AC  @MUL1616
+0003CE  fillRect
+000478  fillScreen
+000496  drawPixel
+0004E4  printDisp
+00056E  drawHLine
+0005EA  tft_putc
+00073E  @PRINTF_U_684
+0007BA  MAIN
+0007BA  @cinit1
+0007E4  @cinit2
+
+User Memory space: rom
+ 007FDC-007FFE  cmd_240x240
+
+Project Directory:
+    E:\Horno\HornoDeRefusion-Codigo\
+
+Project Files:
+    Test display.c                                          [22-dic.-21 11:18  CRC=4BD268F0]
+    D:\Program Files (x86)\PICC\Devices\18f2550.h           [12-jun.-21 00:14  CRC=A8B80131]
+    ST7789.c                                                [22-dic.-21 11:17  CRC=CFCBFCF0]
+    D:\Program Files (x86)\PICC\Drivers\stdint.h            [06-may.-16 10:24  CRC=FE3369EA]
+
+Source signature=C0BD3AE5
+Program memory checksum=B1CB
+Program memory CRC=6FBA
+Hex file CRC=B568
+
+Units:
+    Test display (main)
+
+Compiler Settings:
+    Processor:      PIC18F2550
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Compile Mode:       CCS5
+
+Output Files:
+    XREF file:   Test display.xsym
+    Errors:      Test display.err
+    Ext Symbols: Test display.esym
+    INHX32:      Test display.hex
+    Symbols:     Test display.sym
+    List:        Test display.lst
+    Debug/COFF:  Test display.cof
+    Project:     Test display.ccspjt
+    Call Tree:   Test display.tre
+    Statistics:  Test display.STA

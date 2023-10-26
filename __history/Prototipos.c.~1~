@@ -1,0 +1,12 @@
+#ifndef _PROTOS_DEFS
+#define _PROTOS_DEFS
+struct Punto{
+   unsigned int Temperatura;
+   unsigned long Tiempo;
+};
+
+struct Punto *Curva;
+register int config=read_eeprom(0x00);
+int ultimaTecla, nPuntos=1;
+enum{_X=10,_TICK,_VISTO};
+#endif

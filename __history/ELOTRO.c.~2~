@@ -1,0 +1,9 @@
+struct Estado{
+   unsigned int Temperatura;
+   unsigned long Tiempo;
+};
+
+//struct Estado Curva[17];
+register int config=read_eeprom(0x00);
+int ultimaTecla, nPuntos=1;
+enum{_X=10,_TICK,_VISTO};

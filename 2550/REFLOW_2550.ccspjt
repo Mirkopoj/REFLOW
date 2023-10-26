@@ -1,0 +1,85 @@
+[PROJECT]
+Target=REFLOW_2550.hex
+Processor_Text=PIC18F2550
+CCSVersion=5.070
+Compiler=PCH
+[Target Data]
+FileList=REFLOW_2550.c
+[REFLOW_2550.c]
+Type=4
+[mru-list]
+1=REFLOW_2550.c
+
+[defines]
+buildcount=116
+
+[ProjectLog]
+Days=4
+D1=31-12-2021
+D1_L=2
+D1_L1=[75177]Stopped Editing.
+TotalEdit=166
+TotalDebug=0
+D1_E=6
+D1_D=0
+D1_L2=[75181]Project Closed.
+D2=01-01-2022
+D2_L=2
+D2_L1=[50317]Project Opened.
+D2_L2=[50815]Project Closed.
+D3=03-01-2022
+D3_L=28
+D3_L1=[54697]Project Opened.
+D3_L2=[54778]Started Editing.
+D3_L3=[55107]Stopped Editing.
+D3_L4=[56127]Started Editing.
+D3_L5=[56445]Stopped Editing.
+D3_L6=[56453]Started Editing.
+D3_L7=[56753]Stopped Editing.
+D3_L8=[56813]Started Editing.
+D3_L9=[58184]Stopped Editing.
+D3_L10=[58541]Started Editing.
+D3_L11=[58859]Stopped Editing.
+D3_L12=[59043]Started Editing.
+D3_L13=[59627]Stopped Editing.
+D3_L14=[59735]Started Editing.
+D3_L15=[60426]Stopped Editing.
+D3_L16=[60579]Started Editing.
+D3_L17=[64180]Stopped Editing.
+D3_L18=[64933]Started Editing.
+D3_L19=[65294]Stopped Editing.
+D3_E=158
+D3_D=0
+D3_L20=[66050]Project Closed.
+D3_L21=[66097]Project Opened.
+D3_L22=[66132]Started Editing.
+D3_L23=[66441]Stopped Editing.
+D3_L24=[66842]Started Editing.
+D3_L25=[70751]Stopped Editing.
+D3_L26=[71307]Started Editing.
+D3_L27=[72226]Stopped Editing.
+D3_L28=[72465]Project Closed.
+D4=04-01-2022
+D4_L=4
+D4_L1=[67310]Project Opened.
+D4_L2=[67436]Started Editing.
+D4_L3=[67499]Stopped Editing.
+D4_E=2
+D4_D=0
+D4_L4=[67499]Project Closed.
+
+[Opened Files]
+1=REFLOW_2550.c
+t1=1
+Count=2
+2=..\REFLOW.c
+t2=1
+3=Globales_y_defs_2550.c
+t3=29
+4=Estados_2550.c
+t4=1
+5=Auxiliares_Estados_2550.c
+t5=1
+[Units]
+Count=1
+1=REFLOW_2550 (main)

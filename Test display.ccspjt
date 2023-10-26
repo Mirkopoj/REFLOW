@@ -1,0 +1,94 @@
+[PROJECT]
+Target=Test display.hex
+Processor_Text=PIC18F2550
+CCSVersion=5.070
+Compiler=PCH
+[Target Data]
+FileList=Test display.c
+[Test display.c]
+Type=4
+[mru-list]
+1=Test display.c
+
+[defines]
+buildcount=261
+
+[Opened Files]
+1=REFLOW.c
+t1=1
+2=ST7789.c
+t2=471
+Count=7
+3=Globales_y_defs.c
+t3=12
+4=Estados.c
+t4=1
+5=Auxiliares_Estados.c
+t5=231
+6=D:\Program Files (x86)\PICC\Devices\18f2550.h
+t6=1
+7=Test display.c
+t7=1
+
+[ProjectLog]
+Days=3
+D1=20-12-2021
+D1_L=6
+D1_L1=[67827]Stopped Editing.
+D1_L2=[68068]Started Editing.
+D1_L3=[69311]Stopped Editing.
+D1_L4=[69421]Started Editing.
+D1_L5=[71419]Stopped Editing.
+TotalEdit=496
+TotalDebug=0
+D1_E=70
+D1_D=0
+D1_L6=[71578]Project Closed.
+D2=21-12-2021
+D2_L=15
+D2_L1=[64855]Project Opened.
+D2_L2=[65025]Started Editing.
+D2_L3=[65736]Stopped Editing.
+D2_L4=[68559]Project Opened.
+D2_L5=[68953]Started Editing.
+D2_L6=[69653]Stopped Editing.
+D2_L7=[71192]Started Editing.
+D2_L8=[77855]Stopped Editing.
+D2_L9=[77986]Started Editing.
+D2_L10=[79283]Stopped Editing.
+D2_L11=[79395]Started Editing.
+D2_L12=[83263]Stopped Editing.
+D2_L13=[83354]Started Editing.
+D2_L14=[84935]Stopped Editing.
+D2_L15=[85861]Started Editing.
+D3=22-12-2021
+D3_L=24
+D3_L1=[959]Stopped Editing.
+D3_L2=[1352]Started Editing.
+D3_L3=[2556]Stopped Editing.
+D3_L4=[4469]Started Editing.
+D3_L5=[5000]Stopped Editing.
+D3_L6=[5150]Started Editing.
+D3_L7=[5450]Stopped Editing.
+D3_L8=[5962]Started Editing.
+D3_L9=[12230]Stopped Editing.
+D3_E=426
+D3_D=0
+D3_L10=[12230]Project Closed.
+D3_L11=[32057]Project Opened.
+D3_L12=[32070]Started Editing.
+D3_L13=[32508]Stopped Editing.
+D3_L14=[33058]Started Editing.
+D3_L15=[34454]Stopped Editing.
+D3_L16=[34510]Started Editing.
+D3_L17=[34848]Stopped Editing.
+D3_L18=[35147]Started Editing.
+D3_L19=[37623]Stopped Editing.
+D3_L20=[37623]Project Closed.
+D3_L21=[40558]Project Opened.
+D3_L22=[40586]Started Editing.
+D3_L23=[40740]Stopped Editing.
+D3_L24=[40740]Project Closed.
+[Units]
+Count=1
+1=Test display (main)

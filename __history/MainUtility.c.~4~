@@ -1,0 +1,22 @@
+#ifndef _MAIN_UTILITY
+#define _MAIN_UTILITY
+void init_sequence(){
+   ON(CS2);
+   tft_init();
+   delay_ms(1);
+   
+   printf(tft_putc,"\fDISPLAY TFT: OK\nINICIANDO TECLADO");
+   tecl_init();
+   printf(tft_putc,"\nTECLADO: OK\nINICIANDO TC77");
+   delay_ms(400);
+   
+   float Temperatura=0;
+   int M_ID;
+   M_ID = tc77_init(&Temperatura);
+   printf(tft_putc,"\nTEMP:%f\nM_ID:%x\nMANUFACTURER: ",Temperatura, M_ID);
+   if(M_ID==0x54) printf(tft_putc,"MICROCHIP");
+   else printf(tft_putc,"UNKNOWN");
+   printf(tft_putc,"\nTC77: OK\n\nHORNO LISTO");
+   delay_ms(1);
+}
+#endif

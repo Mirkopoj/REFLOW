@@ -1,0 +1,20 @@
+int tc77_init(float *TempContacto){
+   int EnteroContacto;
+   int DecimalesContacto;
+   int retVal;
+   
+   OFF(CS2);
+   EnteroContacto=spi_xfer(ST7789, 0);
+   DecimalesContacto=spi_xfer(ST7789, 0);
+   spi_xfer(ST7789, 0xFF);
+   spi_xfer(ST7789, 0xFF);
+   retVal = spi_xfer(ST7789, 0);//<<8;
+   spi_xfer(ST7789, 0);//retVal += spi_xfer(ST7789, 0);
+   spi_xfer(ST7789, 0);
+   spi_xfer(ST7789, 0);
+   ON(CS2);
+   
+   TempContacto = (float)((long)EnteroContacto<<5|DecimalesContacto>>3)/16; 
+   //retVal>>=7;
+   return retVal;
+}

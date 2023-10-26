@@ -1,0 +1,126 @@
+ÀÄTest display
+   ÀÄMAIN  0/862  Ram=0
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÃÄtft_init  0/56  Ram=0
+      ³  ÃÄdisplayInit  0/324  Ram=7
+      ³  ³  ÃÄstartWrite  0/6  Ram=0
+      ³  ³  ÃÄ@READ_PROGRAM_MEMORY  0/34  Ram=7
+      ³  ³  ÃÄ@READ_PROGRAM_MEMORY  0/34  Ram=7
+      ³  ³  ÃÄwriteCommand  0/16  Ram=1
+      ³  ³  ³  ÀÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³  ³  ÃÄ@READ_PROGRAM_MEMORY  0/34  Ram=7
+      ³  ³  ÃÄ@READ_PROGRAM_MEMORY  0/34  Ram=7
+      ³  ³  ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³  ³  ÃÄ@READ_PROGRAM_MEMORY  0/34  Ram=7
+      ³  ³  ÃÄ@delay_ms1  0/40  Ram=1
+      ³  ³  ÃÄ@delay_ms1  0/40  Ram=1
+      ³  ³  ÀÄendWrite  0/6  Ram=0
+      ³  ÃÄsetRotation  0/216  Ram=3
+      ³  ³  ÃÄ@goto793  0/34  Ram=0
+      ³  ³  ÃÄ@DIV88  0/44  Ram=3
+      ³  ³  ÃÄ@DIV88  0/44  Ram=3
+      ³  ³  ÃÄ@DIV88  0/44  Ram=3
+      ³  ³  ÃÄstartWrite  0/6  Ram=0
+      ³  ³  ÃÄwriteCommand  0/16  Ram=1
+      ³  ³  ³  ÀÄ*
+      ³  ³  ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³  ³  ÀÄendWrite  0/6  Ram=0
+      ³  ÀÄinvertDisplay  0/28  Ram=2
+      ³     ÃÄstartWrite  0/6  Ram=0
+      ³     ÃÄwriteCommand  0/16  Ram=1
+      ³     ³  ÀÄ*
+      ³     ÀÄendWrite  0/6  Ram=0
+      ÃÄfillScreen  0/30  Ram=2
+      ³  ÀÄfillRect  0/170  Ram=12
+      ³     ÃÄstartWrite  0/6  Ram=0
+      ³     ÃÄsetAddrWindow  0/116  Ram=5
+      ³     ³  ÃÄwriteCommand  0/16  Ram=1
+      ³     ³  ³  ÀÄ*
+      ³     ³  ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³     ³  ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³     ³  ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³     ³  ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³     ³  ÃÄwriteCommand  0/16  Ram=1
+      ³     ³  ³  ÀÄ*
+      ³     ³  ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³     ³  ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³     ³  ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³     ³  ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³     ³  ÀÄwriteCommand  0/16  Ram=1
+      ³     ³     ÀÄ*
+      ³     ÃÄ@MUL1616  0/34  Ram=5
+      ³     ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³     ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³     ÀÄendWrite  0/6  Ram=0
+      ÃÄ@PRINTF_U_684  0/124  Ram=2
+      ³  ÃÄ@DIV88  0/44  Ram=3
+      ³  ÃÄtft_putc  0/340  Ram=3
+      ³  ³  ÃÄfillRect  0/170  Ram=12
+      ³  ³  ³  ÀÄ*
+      ³  ³  ÃÄ@DIV88  0/44  Ram=3
+      ³  ³  ÃÄ@MUL1616  0/34  Ram=5
+      ³  ³  ÃÄprintDisp  0/138  Ram=12
+      ³  ³  ³  ÃÄdrawPixel  0/78  Ram=6
+      ³  ³  ³  ³  ÃÄstartWrite  0/6  Ram=0
+      ³  ³  ³  ³  ÃÄsetAddrWindow  0/116  Ram=5
+      ³  ³  ³  ³  ³  ÀÄ*
+      ³  ³  ³  ³  ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³  ³  ³  ³  ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³  ³  ³  ³  ÀÄendWrite  0/6  Ram=0
+      ³  ³  ³  ÀÄdrawPixel  0/78  Ram=6
+      ³  ³  ³     ÀÄ*
+      ³  ³  ÃÄ@DIV88  0/44  Ram=3
+      ³  ³  ÀÄdrawHLine  0/124  Ram=8
+      ³  ³     ÃÄstartWrite  0/6  Ram=0
+      ³  ³     ÃÄsetAddrWindow  0/116  Ram=5
+      ³  ³     ³  ÀÄ*
+      ³  ³     ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³  ³     ÃÄ@SPI_XFER_1_8  0/16  Ram=3
+      ³  ³     ÀÄendWrite  0/6  Ram=0
+      ³  ÃÄ@DIV88  0/44  Ram=3
+      ³  ÃÄtft_putc  0/340  Ram=3
+      ³  ³  ÀÄ*
+      ³  ÀÄtft_putc  0/340  Ram=3
+      ³     ÀÄ*
+      ÃÄtft_putc  0/340  Ram=3
+      ³  ÀÄ*
+      ÃÄ@PRINTF_U_684  0/124  Ram=2
+      ³  ÀÄ*
+      ÃÄtft_putc  0/340  Ram=3
+      ³  ÀÄ*
+      ÃÄ@PRINTF_U_684  0/124  Ram=2
+      ³  ÀÄ*
+      ÃÄtft_putc  0/340  Ram=3
+      ³  ÀÄ*
+      ÃÄ@PRINTF_U_684  0/124  Ram=2
+      ³  ÀÄ*
+      ÃÄtft_putc  0/340  Ram=3
+      ³  ÀÄ*
+      ÃÄ@PRINTF_U_684  0/124  Ram=2
+      ³  ÀÄ*
+      ÃÄtft_putc  0/340  Ram=3
+      ³  ÀÄ*
+      ÃÄ@PRINTF_U_684  0/124  Ram=2
+      ³  ÀÄ*
+      ÃÄtft_putc  0/340  Ram=3
+      ³  ÀÄ*
+      ÃÄ@PRINTF_U_684  0/124  Ram=2
+      ³  ÀÄ*
+      ÃÄtft_putc  0/340  Ram=3
+      ³  ÀÄ*
+      ÃÄ@PRINTF_U_684  0/124  Ram=2
+      ³  ÀÄ*
+      ÃÄtft_putc  0/340  Ram=3
+      ³  ÀÄ*
+      ÃÄ@PRINTF_U_684  0/124  Ram=2
+      ³  ÀÄ*
+      ÃÄtft_putc  0/340  Ram=3
+      ³  ÀÄ*
+      ÃÄ@PRINTF_U_684  0/124  Ram=2
+      ³  ÀÄ*
+      ÃÄtft_putc  0/340  Ram=3
+      ³  ÀÄ*
+      ÃÄ@PRINTF_U_684  0/124  Ram=2
+      ³  ÀÄ*
+      ÀÄtft_putc  0/340  Ram=3
+         ÀÄ*

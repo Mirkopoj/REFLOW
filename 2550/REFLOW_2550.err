@@ -1,0 +1,40 @@
+>>> Warning 214 "E:\Horno\HornoDeRefusion-Codigo\2550\Auxiliares_Estados_2550.c" Line 402(1,1): Operator precedance rules may not be as intended, use () to clarify
+>>> Warning 214 "E:\Horno\HornoDeRefusion-Codigo\2550\Auxiliares_Estados_2550.c" Line 407(1,1): Operator precedance rules may not be as intended, use () to clarify
+>>> Warning 214 "E:\Horno\HornoDeRefusion-Codigo\2550\Auxiliares_Estados_2550.c" Line 629(1,1): Operator precedance rules may not be as intended, use () to clarify
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 8(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 28(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 118(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 131(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 144(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 158(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 173(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 190(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 207(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 223(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 239(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 256(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 273(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 289(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 305(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 322(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 339(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 355(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 371(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 387(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 404(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 419(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 435(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 450(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 468(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 486(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 504(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 522(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 538(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 580(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 606(1,1): Condition always TRUE
+>>> Warning 203 "E:\Horno\HornoDeRefusion-Codigo\2550\Estados_2550.c" Line 655(1,1): Condition always TRUE
+>>> Warning 203 "REFLOW_2550.c" Line 28(1,1): Condition always TRUE
+>>> Warning 216 "REFLOW_2550.c" Line 137(1,2): Interrupts disabled during call to prevent re-entrancy:  (@ADDFF)
+      Memory usage:   ROM=80%      RAM=21% - 26%
+      0 Errors,  37 Warnings.
+Build Successful.

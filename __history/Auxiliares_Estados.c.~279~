@@ -1,0 +1,650 @@
+#ifndef _AUX_ESTADOS
+#define _AUX_ESTADOS
+//Genera un degradé desde azul hasta rojo pasando por verde
+//entre dos alturas limite dadas
+//y devuelve el el color correspondiente a esa altura
+uint16_t HeatMap(uint8_t s, uint8_t e, uint8_t y){ 
+   uint8_t i;
+   if(y>(e+s)/2){
+      i=e-y;
+      return (((uint16_t)0x1F*(((e-s)/2)-i))/((e-s)/2))|((((uint16_t)0x3F*i)/((e-s)/2))<<5);
+   }
+   i=(e+s)/2-y;
+   return ((((uint16_t)0x3F*(((e-s)/2)-i))/((e-s)/2))<<5)|((((uint16_t)0x1F*i)/((e-s)/2))<<11);
+}
+struct Punto Graf(int nPuntos, struct punto *Curva, int1 modo){
+   int1 EtapaEnCurso;
+   int contTotal=0, contEtapa;
+   int yM=(_height-13), xM=(_width-30);
+   struct Punto Max;
+   Max.Tiempo = 0;
+   Max.Temperatura = 0;
+   for(int i=0; i<nPuntos; i++){
+      if(Curva[i].Temperatura>Max.Temperatura)Max.Temperatura=Curva[i].Temperatura;
+      Max.Tiempo += Curva[i].Tiempo;
+   }
+   float prev_y=yM;
+   float K=(float)(xM-1)/Max.Tiempo; //Pixeles/segundo
+   float Pincel=0, dp;
+   fillRect(22,21,xM,(_height-33),BG_COLOR);
+   //Bucle de dibujo
+   for(int i=0; i<nPuntos; i++){
+      //Determinar el delta por pixel de la etapa
+      dp=((float)Curva[i].Temperatura-Pincel)/(Curva[i].Tiempo*K);
+      //Resetear los flags de finalizacion
+      EtapaEnCurso = TRUE;
+      contEtapa = 0;
+      //Bucle de la etapa
+      while(EtapaEnCurso){
+         //Etapa terminada
+         if(contEtapa >= k*Curva[i].Tiempo-1) EtapaEnCurso = FALSE;
+         Pincel+=dp;
+         y = yM-((float)(_height-36)/Max.Temperatura)*Pincel;
+         /* Linea a color, borde gordo
+         if(prev_y-y>=0) drawVLine(cont2+22,y,abs(y-prev_y)+1,HeatMap(0,255,~(int)Pincel));
+         else drawVLine(cont2+22,prev_y,abs(y-prev_y)+1,HeatMap(0,255,~(int)Pincel));*/
+         if(modo){
+            // Volumen a color //HeatMap(20,yM-1,y)<<Color en funsion de la altura y no la temperatura
+            if(prev_y-y>0) fillRect(contTotal+22,y+1,xM-contTotal,abs(y-prev_y),HeatMap(0,255,~(int)Pincel));
+            else fillRect(contTotal+22,prev_y+1,xM-contTotal,abs(y-prev_y),BG_COLOR);
+         }else{
+            //Linea gris, borde gordo
+            if(prev_y-y>=0) drawVLine(contTotal+22,y,abs(y-prev_y)+1,0xA534);
+            else drawVLine(contTotal+22,prev_y,abs(y-prev_y)+1,0xA534);
+         }
+         contEtapa++;
+         contTotal++;
+         prev_y=y;
+      }
+   }
+   if(modo) fillRect(contTotal+23,prev_y,xM-contTotal,abs(yM-prev_y),BG_COLOR);
+   return Max;
+}
+void GrafFrame(){
+   drawHLine(        19,(_height-12), (_width-27),TX_COLOR);
+   drawVLine(        21,          20,(_height-29),TX_COLOR);
+   drawHLine(        19,          20,           5,TX_COLOR);
+   drawVLine((_width-8),(_height-14),           5,TX_COLOR);
+   return;
+}
+void GrafData(struct Punto Vals){
+   long Tiempo = Vals.Tiempo;
+   long Temp = (long)Vals.Temperatura+MINTEMP;
+   int x=X, y=Y;
+   char u='C';
+   if((config&4)==4){ 
+      Temp=((Temp*9)/5)+32;
+      u='F';
+   }
+   tft_gotoxy(0, 2);
+   printf(tft_putc,"°%c\n%03Lu", u, Temp);
+   tft_gotoxy(X_MAX-5, Y_MAX);
+   if((config&16)>>4){
+      printf(tft_putc,"%02Lu:%02Lu", Tiempo/60, Tiempo%60);
+   }
+   else if((config&0x03)==3) printf(tft_putc,"%04LuC",Tiempo);
+   else printf(tft_putc,"%04LuS",Tiempo);
+   tft_gotoxy(x, y);
+   return;
+}
+int1 perfilVacio(int nPerfil){
+   return (~read_eeprom(0x33*nPerfil-0x32)==0&&~read_eeprom(0x33*nPerfil-0x31)==0&&~read_eeprom(0x33*nPerfil-0x30)==0)? 1:0;
+}
+void printVacio(){
+   int _x=X,_y=Y;
+   disable_interrupts(global);
+   fillRect(22,21,(_width-30),(_height-33),BG_COLOR);
+   tft_gotoxy(0, 2);
+   printf(tft_putc,"  \n   ");
+   tft_gotoxy(X_MAX-5, Y_MAX);
+   printf(tft_putc,"     ");
+   tft_gotoxy(11,8);
+   switch(config&0x03){
+      case 0:
+         printf(tft_putc,"VACIO");
+         break;
+      case 1:
+         printf(tft_putc,"EMPTY");
+         break;
+      case 2:
+         printf(tft_putc,"VIDE");
+         break;
+      case 3:
+         printf(tft_putc,"ÏYCTO]"); 
+         break;
+   }
+   enable_interrupts(global);
+   X=_x;
+   Y=_y;
+   return;
+}
+void GrafPerfil(int *nPuntos,struct Punto *Curva, int nPerfil){
+   int _x=X,_y=Y;
+   int1 prvPerfilVacio = TRUE;
+   if(nPerfil!=1) prvPerfilVacio=perfilVacio(nPerfil-1);
+   if(perfilVacio(nPerfil)||nPerfil==6){
+      if(prvPerfilVacio==0){
+         printVacio();
+      }
+   } else{
+      *nPuntos=17;
+      for(int i=0;i<(*nPuntos);i++){
+         Curva[i].Temperatura=~read_eeprom(0x33*nPerfil-0x32+3*i);
+         Curva[i].Tiempo=~read_eeprom(0x33*nPerfil-0x31+3*i);
+         Curva[i].Tiempo<<=8;
+         Curva[i].Tiempo|=~read_eeprom(0x33*nPerfil-0x30+3*i);
+         if(Curva[i].Temperatura==0&&Curva[i].Tiempo==0){
+            *nPuntos=i;
+            break;
+         }
+      }
+      struct Punto buff;
+      buff = Graf(*nPuntos, Curva, 1);
+      GrafData(buff);
+   }
+   X=_x;
+   Y=_y;
+}
+void Cursor(int _x,int _y){
+   x-=6;
+   printf(tft_putc," ");
+   tft_gotoxy(_x,_y);
+   printf(tft_putc,">");
+}
+void printPerfilesLit(){
+   switch(config&0x03){
+      case 0:
+         printf(tft_putc,"PERFILES");
+         break;
+      case 1:
+         printf(tft_putc,"PROFILES");
+         break;
+      case 2:
+         printf(tft_putc,"PROFILS");
+         break;
+      case 3:
+         printf(tft_putc,"ÏPOÔ\\Ë\\");
+         break;
+   }
+}
+void printVolver(){
+   disable_interrupts(global);
+   switch(config&0x03){
+      case 0:
+         printf(tft_putc,"VOLVER ");
+         break;
+      case 1:
+         printf(tft_putc,"RETURN ");
+         break;
+      case 2:
+         printf(tft_putc,"REVENIR ");
+         break;
+      case 3:
+         printf(tft_putc,"BO[BPAÙATÜCß ");
+         break;
+   }
+   enable_interrupts(global);
+   return;
+}
+void printMenuPrincipal(){
+   disable_interrupts(global);
+   switch(config&0x03){
+      case 0:
+         printf(tft_putc,"\f\n MENU PRINCIPAL:\n\n");
+         break;
+      case 1:
+         printf(tft_putc,"\f\n MAIN MENU:\n\n");
+         break;
+      case 2:
+         printf(tft_putc,"\f\n MENU PRINCIPAL:\n\n");
+         break;
+      case 3:
+         printf(tft_putc,"\f\n ÃËABHOE MEHÞ:\n\n");
+         break;
+   }
+   printf(tft_putc,"   ");
+   printPerfilesLit();
+   printf(tft_putc,"\n\n");
+   switch(config&0x03){
+      case 0:
+         printf(tft_putc,"   CARGAR VALORES\n\n");
+         printf(tft_putc,"   CONFIGURACIÓN ");
+         break;
+      case 1:
+         printf(tft_putc,"   LOAD VALUES\n\n");
+         printf(tft_putc,"   SETTINGS ");
+         break;
+      case 2:
+         printf(tft_putc,"   CHARGER VALEURS\n\n");
+         printf(tft_putc,"   PARAMÈTRES ");
+         break;
+      case 3:
+         printf(tft_putc,"   [HA×EH\\ß HAÃPY[K\\\n\n");
+         printf(tft_putc,"   ÏAPAMETP ");
+         break;
+   }
+   enable_interrupts(global);
+   return;
+}
+void printPerfiles(){
+   disable_interrupts(global);
+   printf(tft_putc,"\f");
+   printPerfilesLit();
+   printf(tft_putc,":\n");
+   printf(tft_putc,"  1  2  3  4  5  ");
+   printVolver();
+   enable_interrupts(global);
+   return;
+}
+void printConfiguracion(){
+   switch(config&0x03){
+      case 0:
+         printf(tft_putc,"\f\n CONFIGURACIÓN:\n\n");
+         printf(tft_putc,"   TIEMPO\n\n");
+         printf(tft_putc,"   TEMPERATURA\n\n");
+         printf(tft_putc,"   IDIOMA\n\n");
+         break;
+      case 1:
+         printf(tft_putc,"\f\n SETTINGS:\n\n");
+         printf(tft_putc,"   TIME\n\n");
+         printf(tft_putc,"   TEMPERATURE\n\n");
+         printf(tft_putc,"   LANGUAGE\n\n");
+         break;
+      case 2:
+         printf(tft_putc,"\f\n PARAMÈTRES:\n\n");
+         printf(tft_putc,"   TEMPS\n\n");
+         printf(tft_putc,"   TEMPÉRATURE\n\n");
+         printf(tft_putc,"   LANGAGE\n\n");
+         break;
+      case 3:
+         printf(tft_putc,"\f\n ÏAPAMETP:\n\n");
+         printf(tft_putc,"   ÏOÃOÄA\n\n");
+         printf(tft_putc,"   TEMÏEPATYPA\n\n");
+         printf(tft_putc,"   \\Ä\\OMA\n\n");
+         break;
+   }
+   printf(tft_putc,"   ");
+   printVolver();
+   return;
+}
+void printTiempo(){
+   switch(config&0x03){
+      case 0:
+         printf(tft_putc,"\f\n CONFIGURACIÓN:\n\n");
+         printf(tft_putc,"   TIEMPO:\n\n");
+         printf(tft_putc,"      FORMATO\n\n");
+         printf(tft_putc,"      ORIGEN\n\n");
+         break;
+      case 1:
+         printf(tft_putc,"\f\n SETTINGS:\n\n");
+         printf(tft_putc,"   TIME:\n\n");
+         printf(tft_putc,"      FORMAT\n\n");
+         printf(tft_putc,"      REFERENCE\n\n");
+         break;
+      case 2:
+         printf(tft_putc,"\f\n PARAMÈTRES:\n\n");
+         printf(tft_putc,"   TEMPS:\n\n");
+         printf(tft_putc,"      FORMAT\n\n");
+         printf(tft_putc,"      ORIGINE\n\n");
+         break;
+      case 3:
+         printf(tft_putc,"\f\n ÏAPAMETP:\n\n");
+         printf(tft_putc,"   ÏOÃOÄA:\n\n");
+         printf(tft_putc,"      ÔORMAT\n\n");
+         printf(tft_putc,"      \\CTO×H\\K\n\n");
+         break;
+   }
+   printf(tft_putc,"   ");
+   printVolver();
+   return;
+}
+void printFormato(){
+   printf(tft_putc,"\f\n CONFIGURACIÓN:\n\n");
+   printf(tft_putc,"   TIEMPO:\n\n");
+   printf(tft_putc,"      FORMATO:\n\n");
+   printf(tft_putc,"         SSSS\n\n");
+   printf(tft_putc,"         MM:SS\n\n");
+   printf(tft_putc,"         VOLVER ");
+   return;
+}
+void printOrigen(){
+   printf(tft_putc,"\f\n CONFIGURACIÓN:\n\n");
+   printf(tft_putc,"   TIEMPO:\n\n");
+   printf(tft_putc,"      ORIGEN:\n\n");
+   printf(tft_putc,"         RELATIVO\n\n");
+   printf(tft_putc,"         ABSOLUTO\n\n");
+   printf(tft_putc,"         VOLVER ");
+   return;
+}
+void printTemperatura(){
+   printf(tft_putc,"\f\n CONFIGURACIÓN:\n\n");
+   printf(tft_putc,"   TEMPERATURA:\n\n");
+   printf(tft_putc,"      °C\n\n");
+   printf(tft_putc,"      °F\n\n");
+   printf(tft_putc,"      VOLVER ");
+   return;
+}
+void printIdioma(){
+   printf(tft_putc,"\f\n CONFIGURACIÓN:\n\n");
+   printf(tft_putc,"   IDIOMA:\n\n");
+   printf(tft_putc,"      ESPAÑOL\n\n");
+   printf(tft_putc,"      ENGLISH\n\n");
+   printf(tft_putc,"      FRANÇAIS\n\n");
+   printf(tft_putc,"      PYCCK\\]\n\n");
+   printf(tft_putc,"      VOLVER ");
+   return;
+}
+void printSoldando(){
+   disable_interrupts(global);
+   fillRect(X_BEGIN,Y_BEGIN-8,_width,16,BG_COLOR);
+   tft_gotoxy(0,0);
+   switch(config&0x03){
+      case 0:
+         printf(tft_putc,"SOLDANDO...");
+         break;
+      case 1:
+         printf(tft_putc,"REFLOWING...");
+         break;
+      case 2:
+         printf(tft_putc,"SOLDURE...");
+         break;
+      case 3:
+         printf(tft_putc,"ÏA]KA...");
+         break;
+   }
+   enable_interrupts(global);
+   return;
+}
+void printCancelar(){
+   disable_interrupts(global);
+   fillRect(X_BEGIN,Y_BEGIN-8,_width,16,BG_COLOR);
+   tft_gotoxy(0,0);
+   switch(config&0x03){  
+      case 0:
+         printf(tft_putc,"\f¿CANCELAR?");
+         break;
+      case 1:
+         printf(tft_putc,"\fCANCEL?");
+         break;
+      case 2:
+         printf(tft_putc,"\fANNULER?");
+         break;
+      case 3:
+         printf(tft_putc,"\fOTMEH\\TÜ?");
+         break;
+   } 
+   enable_interrupts(INT_EXT2_H2L);
+   enable_interrupts(global);
+   return;
+}
+void printTermiando(){
+   disable_interrupts(global);
+   fillRect(X_BEGIN,Y_BEGIN-8,_width,16,BG_COLOR);
+   tft_gotoxy(0,0);
+   switch(config&0x03){
+      case 0:
+         printf(tft_putc,"TERMINADO");
+         break;
+      case 1:
+         printf(tft_putc,"ENDED");
+         break;
+      case 2:
+         printf(tft_putc,"FINALISE");
+         break;
+      case 3:
+         printf(tft_putc,"[AKOH×EHHÛ]");
+         break;
+      }
+   enable_interrupts(global);
+   return;
+}
+void printIniciar(){
+   switch(config&0x03){
+      case 0:
+         printf(tft_putc,"¿INICIAR?");
+         break;
+      case 1:
+         printf(tft_putc,"START?");
+         break;
+      case 2:
+         printf(tft_putc,"COMMENCER?");
+         break;
+      case 3:
+         printf(tft_putc,"HA×\\HATÜ?"); 
+         break;
+   }
+   return;
+}
+void printOtroPunto(){
+   switch(config&0x03){
+      case 0:
+         printf(tft_putc," >¿OTRO PUNTO?");
+         break;
+      case 1:
+         printf(tft_putc," >ANOTHER POINT?");
+         break;
+      case 2:
+         printf(tft_putc," >AUTRE POINT?");
+         break;
+      case 3:
+         printf(tft_putc," >ÄPYÃAß TO×KA?");
+         break;
+   }
+   return;
+}
+void print_temp(long ovr){
+   int _x=X,_y=Y;
+   tft_gotoxy(X_MAX-4,0);
+   if(ovr==1000){
+      printf(tft_putc,"MAX");
+      X=_x;
+      Y=_y;
+      return;
+   }
+   if(ovr==-1){
+      printf(tft_putc,"MIN");
+      X=_x;
+      Y=_y;
+      return;
+   }
+   printf(tft_putc,"%03Lu",ovr);
+   X=_x;
+   Y=_y;
+   return;
+}
+void print_tiempo(long tiempo){
+   int _x=X,_y=Y;
+   tft_gotoxy(X_MAX-4,1);
+   if((config&0x10)==0x10){
+      int min=(tiempo/60)%100,seg=tiempo%60;
+      printf(tft_putc,"%02d:%02d",min,seg);
+      X=_x;
+      Y=_y;
+      return;
+   }
+   if(config&0x03==3){
+      printf(tft_putc,"%04LuC",tiempo);
+      X=_x;
+      Y=_y;
+      return;
+   }
+   printf(tft_putc,"%04LuS",tiempo);
+   X=_x;
+   Y=_y;
+   return;
+}
+int guardarPuntos(int nPerfil, int nPuntos, struct Punto *Curva){
+   if((config&8)==8){
+      for(int i=nPuntos;i>1;i--)Curva[i-1].Tiempo-=Curva[i-2].Tiempo;
+   }
+   if(nPerfil!=0){
+      for(int i=0;i<nPuntos;i++){
+         write_eeprom(0x33*nPerfil-0x32+3*i,~Curva[i].Temperatura);
+         write_eeprom(0x33*nPerfil-0x31+3*i,~Curva[i].Tiempo>>8);
+         write_eeprom(0x33*nPerfil-0x30+3*i,~Curva[i].Tiempo);
+      }
+      if(nPuntos<17){//Terminacion de 00 00 00 para que cargar valores sepa donde acaba la curva
+         write_eeprom(0x33*nPerfil-0x32+3*(nPuntos+1),~Curva[(nPuntos+1)].Temperatura);
+         write_eeprom(0x33*nPerfil-0x31+3*(nPuntos+1),~Curva[(nPuntos+1)].Tiempo>>8);
+         write_eeprom(0x33*nPerfil-0x30+3*(nPuntos+1),~Curva[(nPuntos+1)].Tiempo);
+      }
+   }
+   return _Iniciar;
+}
+enum{
+   _CargarTemperatura =100,
+   _CargarMinutos,
+   _CargarSegundos,
+   _CargarTiempo,
+   _CheckearSiValido
+};
+int CargarTemperatura(int *temp, int *nPuntos){
+   long ovr=*temp;
+   Cursor(X_MAX-5,0);
+   while(ultimaTecla!=_TICK){
+      if(ultimaTecla==_X){
+         ultimaTecla=_VISTO;
+         if(ovr==0){
+            tecl_mode(estatico);
+            if((*nPuntos&0x3F)==1){
+               int nPerfil=(config&0xE0)>>5;
+               if(nPerfil==0) return _CargarValores;
+               if(~read_eeprom(0x33*nPerfil-0x32)==0&&~read_eeprom(0x33*nPerfil-0x31)==0&&~read_eeprom(0x33*nPerfil-0x30)==0) return _Perfil_Crear;
+               return _Perfil_Editar;  
+            }
+            (*nPuntos)--;
+            return _OtroPunto;   
+         }
+         ovr/=10;
+         print_temp(ovr);
+      }
+      if(ultimaTecla<10){
+         ovr=(ovr*10+ultimaTecla)%1000;
+         ultimaTecla=_VISTO;
+         print_temp(ovr);
+      }
+   }
+   ultimaTecla=_VISTO;
+   if((config&4)==4){ 
+      if(ovr<32) ovr=32;
+      ovr=((ovr-32)*5)/9;
+   }
+   if(ovr<=MINTEMP){
+      *temp=0;
+      print_temp(-1);
+   }else if(ovr>=255+MINTEMP){
+      *temp=255;
+      print_temp(1000);
+   }else *temp=ovr-MINTEMP;
+   if((config&16)>>4) return _CargarMinutos;
+   return _CargarTiempo;
+}
+int CargarMinutos(long *tiempo){ 
+   Cursor(X_MAX-5,1);
+   while(ultimaTecla!=_TICK){
+      if(ultimaTecla==_X){
+         ultimaTecla=_VISTO;
+         if(*tiempo==0) return _CargarTemperatura;
+         *tiempo/=10;
+         print_tiempo(*tiempo*60);
+      }
+      if(ultimaTecla<10){
+         *tiempo=(*tiempo*10+ultimaTecla)%100;
+         ultimaTecla=_VISTO;
+         print_tiempo(*tiempo*60);
+      }
+   }
+   ultimaTecla=_VISTO;
+   *tiempo*=60;
+   return _CargarSegundos;
+}
+int CargarSegundos(long *tiempo){
+   int seg=0;
+   while(ultimaTecla!=_TICK){
+      if(ultimaTecla==_X){
+         ultimaTecla=_VISTO;
+         if(seg==0) return _CargarMinutos;
+         seg/=10;
+         print_tiempo((*tiempo)+seg);
+      }
+      if(ultimaTecla<10){
+         seg=((seg%10)*10+ultimaTecla);
+         ultimaTecla=_VISTO;
+         print_tiempo((*tiempo+(seg%60)));
+      }
+   }
+   ultimaTecla=_VISTO;
+   *tiempo+=seg;
+   return _CheckearSiValido;
+}
+int CargarTiempo(long *tiempo){
+   Cursor(X_MAX-5,1);
+   while(ultimaTecla!=_TICK){
+      if(ultimaTecla==_X){
+         ultimaTecla=_VISTO;
+         if(*tiempo==0) return _CargarTemperatura;
+         *tiempo/=10;
+         print_tiempo(*tiempo);
+      }
+      if(ultimaTecla<10){
+         *tiempo=((*tiempo%1000)*10+ultimaTecla);
+         ultimaTecla=_VISTO;
+         print_tiempo(*tiempo);
+      }
+   }
+   ultimaTecla=_VISTO;
+   return _CheckearSiValido;
+}
+int CheckearSiValido(long tiempo, int temp, int nPuntos, struct Punto *Curva){
+   tecl_mode(estatico);
+   int nPerfil=(config&0xE0)>>5;
+   if((tiempo==0)||(((config&8)==8)&&(nPuntos>1)&&(tiempo<Curva[nPuntos-2].Tiempo))) return _PuntoNoValido;
+   Curva[nPuntos-1].Temperatura=temp;
+   Curva[nPuntos-1].Tiempo=tiempo;
+   if(nPuntos==17) return guardarPuntos(nPerfil,nPuntos,Curva);
+   struct Punto buff;
+   buff = Graf(nPuntos, Curva, 1);
+   GrafData(buff);
+   return _OtroPunto;
+}
+#INT_TIMER1
+void isr_timer1(){
+   Setpoint+=dt;
+   cont++;
+   return;
+}
+void timer1_init(){
+   setup_timer_1(T1_DIV_BY_4|T1_INTERNAL);   //-> Diferencial de tiempo, Granularidad con la que se actualiiza el setpoint. 7.62Hz
+   enable_interrupts(global);            
+   enable_interrupts(INT_TIMER1);
+   return;
+}
+void adc_init(){
+   setup_adc(ADC_CLOCK_INTERNAL|ADC_CLOCK_DIV_8); // FOSC/8 -> FOSCmax = 10MHz
+   setup_adc_ports(port_adc, VREF_VREF);
+   return;
+}
+float MedirTemp(){
+   float x=read_adc();
+   float temp = (float)x*ESCALADO+OFFSET;
+   delay_ms(1);
+   int EnteroContacto;
+   int DecimalesContacto;
+   float TempContacto;
+   OFF(CS2);
+   EnteroContacto=spi_xfer(ST7789, 0);
+   DecimalesContacto=spi_xfer(ST7789, 0);
+   ON(CS2);
+   TempContacto = (float)((long)EnteroContacto<<5|DecimalesContacto>>3)/16;
+   if(temp>TempContacto)temp-=TempContacto;
+   if(temp<MINTEMP)temp=MINTEMP;
+   return (temp>(255+MINTEMP))? (255+MINTEMP):temp-MINTEMP;
+}
+void curva_init(struct punto *Curva){
+   for(int i=0;i<17;i++){
+      Curva[i].Temperatura=0;
+      Curva[i].Tiempo=0;
+   }
+   ultimaTecla=_VISTO;
+}
+#endif

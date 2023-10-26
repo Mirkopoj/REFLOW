@@ -1,0 +1,3 @@
+void tc77_init(){
+   return;
+}

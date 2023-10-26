@@ -1,0 +1,143 @@
+#include <18f45K50.h>
+#device ADC=10
+#fuses nowdt, nolvp, NOPROTECT, NOPUT,NOBROWNOUT, NOWRT,NOWRTC, NOMCLR
+#define freq 8000000
+#use delay(int=freq)
+#define presc 4
+#use SPI(SPI1, MODE = 2, BITS = 8, STREAM = ST7789, BAUD = 4000000, FORCE_HW)
+#include "Globales_y_defs.c"
+#include "ST7789.c"
+#include "Pad.c"
+#include "TC77.c"
+#include "Graf.c"
+#include "MainUtility.c"
+#include "Estados.c"  
+
+void main(){
+   init_sequence();
+   delay_ms(1000);
+   
+   while(1){
+      printf(tft_putc,"\f%f",  MedirTemp());
+      delay_ms(1000);
+   }
+
+   int estado=_SeleccionDePerfil;
+   int nPuntos=1;
+   if((config&0xE0)>>5==0)estado=_CargarValores;
+   struct Punto Curva[17];
+   curva_init(Curva);
+   printMenuPrincipal();
+   enable_interrupts(GLOBAL);
+   
+   while(1){
+      switch(estado){
+         case _SeleccionDePerfil:
+            estado=SeleccionDePerfil();
+            break;
+         case _Perfiles:
+            estado=Perfiles(&nPuntos, Curva);
+            break;
+         case _Perfil_Crear:
+            estado=Perfil_Crear();
+            break;
+         case _Perfil_Cargar:
+            estado=Perfil_Cargar();
+            break;
+         case _Perfil_Editar:
+            estado=Perfil_Editar();
+            break;
+         case _Perfil_Volver:
+            estado=Perfil_Volver();
+            break;
+         case _CargarValores:
+            estado=CargarValores(&nPuntos);
+            break;
+         case _Configuracion:
+            estado=Configuracion();
+            break;
+         case _Config_Tiempo:
+            estado=Config_Tiempo();
+            break;
+         case _Config_Tiempo_Formato:
+            estado=Config_Tiempo_Formato();
+            break;
+         case _Config_Tiempo_Formato_mmss:
+            estado=Config_Tiempo_Formato_mmss();
+            break;
+         case _Config_Tiempo_Formato_ssss:
+            estado=Config_Tiempo_Formato_ssss();
+            break;
+         case _Config_Tiempo_Formato_Volver:
+            estado=Config_Tiempo_Formato_Volver();
+            break;
+         case _Config_Tiempo_Origen:
+            estado=Config_Tiempo_Origen();
+            break;
+         case _Config_Tiempo_Origen_Absoluto:
+            estado=Config_Tiempo_Origen_Absoluto();
+            break;
+         case _Config_Tiempo_Origen_Relativo:
+            estado=Config_Tiempo_Origen_Relativo();
+            break;
+         case _Config_Tiempo_Origen_Volver:
+            estado=Config_Tiempo_Origen_Volver();
+            break;
+         case _Config_Tiempo_Volver:
+            estado=Config_Tiempo_Volver();
+            break;
+         case _Config_Temp:
+            estado=Config_Temp();
+            break;
+         case _Config_Temp_C:
+            estado=Config_Temp_C();
+            break;
+         case _Config_Temp_F:
+            estado=Config_Temp_F();
+            break;
+         case _Config_Temp_Volver:
+            estado=Config_Temp_Volver();
+            break;
+         case _Config_Idioma:
+            estado=Config_Idioma();
+            break;
+         case _Config_Idioma_Es:
+            estado=Config_Idioma_Es();
+            break;
+         case _Config_Idioma_En:
+            estado=Config_Idioma_En();
+            break;
+         case _Config_Idioma_Fr:
+            estado=Config_Idioma_Fr();
+            break;
+         case _Config_Idioma_Ru:
+            estado=Config_Idioma_Ru();
+            break;
+         case _Config_Idioma_Volver:
+            estado=Config_Idioma_Volver();
+            break;
+         case _Config_Volver:
+            estado=Config_Volver();
+            break;
+         case _CargarPunto:
+            estado=CargarPunto(&nPuntos, Curva);
+            break;
+         case _Iniciar:
+            estado=Iniciar(&nPuntos, Curva);
+            break;
+         case _PuntoNoValido:
+            estado=PuntoNoValido();
+            break;
+         case _OtroPunto:
+            estado=OtroPunto(&nPuntos, Curva);
+            break;
+         case _Soldando:
+            estado=Soldando(nPuntos, Curva);
+            break;
+         case _Terminado:
+            estado=Terminado(Curva);
+            break;
+      }
+   }
+   return;
+}

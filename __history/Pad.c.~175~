@@ -1,0 +1,209 @@
+#ifndef _PAD
+#define _PAD
+/*
+#INT_EXT2 
+void isr_ext2(){
+   if(input_state(C2)==0){
+      if(input_state(F0)==0){
+         if(input_state(F0)==0)ultimaTecla=_TICK;
+         return;
+      }
+      if(input_state(F1)==0){ 
+         if(input_state(F1)==0)ultimaTecla=9;
+         return;
+      }
+      if(input_state(F2)==0){
+         if(input_state(F2)==0)ultimaTecla=6;
+         return;
+      }
+      if(input_state(F3)==0){  
+         if(input_state(F3)==0)ultimaTecla=3;
+         return;
+      }
+   }
+   if(input_state(C1)==0){
+       if(input_state(F0)==0){
+         if(input_state(F0)==0)ultimaTecla=0;
+         return;
+      }
+      if(input_state(F1)==0){
+         if(input_state(F1)==0)ultimaTecla=8;
+         return;
+      }
+      if(input_state(F2)==0){
+         if(input_state(F2)==0)ultimaTecla=5;
+         return;
+      }
+      if(input_state(F3)==0){
+         if(input_state(F3)==0)ultimaTecla=2;
+         return;
+      }
+   }
+   if(input_state(C0)==0){
+      if(input_state(F0)==0){      
+         if(input_state(F0)==0)ultimaTecla=_X;
+         return;
+      }
+      if(input_state(F1)==0){
+         if(input_state(F1)==0)ultimaTecla=7;
+         return;
+      }
+      if(input_state(F2)==0){
+         if(input_state(F2)==0)ultimaTecla=4;
+         return;
+      }
+      if(input_state(F3)==0){
+         if(input_state(F3)==0)ultimaTecla=1;
+         return;
+      }
+   }
+   return;
+}*/
+#INT_EXT2 
+void isr_ext2(){
+   if(input_state(F0)==0){
+      ultimaTecla=0;
+      return;
+   }
+   if(input_state(F1)==0){
+      ultimaTecla=8;
+      return;
+   }
+   if(input_state(F2)==0){ 
+      ultimaTecla=5;
+      return;
+   }
+   if(input_state(F3)==0){
+      ultimaTecla=2;
+      return;
+   }
+   return;
+}
+#INT_RB
+void isr_rb4(){
+   if(input_state(C2)==0){
+      if(input_state(F0)==0){
+         if(input_state(F0)==0)ultimaTecla=_TICK;
+         return;
+      }
+      if(input_state(F1)==0){   
+         if(input_state(F1)==0)ultimaTecla=9;
+         return;
+      }
+      if(input_state(F2)==0){
+         if(input_state(F2)==0)ultimaTecla=6;
+         return;
+      }
+      if(input_state(F3)==0){  
+         if(input_state(F3)==0)ultimaTecla=3;
+         return;
+      }
+   }
+   return;
+}
+#INT_RC
+void isr_rc0(){
+   if(input_state(C0)==0){
+      if(input_state(F0)==0){      
+         if(input_state(F0)==0)ultimaTecla=_X;
+         return;
+      }
+      if(input_state(F1)==0){
+         if(input_state(F1)==0)ultimaTecla=7;
+         return;
+      }
+      if(input_state(F2)==0){
+         if(input_state(F2)==0)ultimaTecla=4;
+         return;
+      }
+      if(input_state(F3)==0){
+         if(input_state(F3)==0)ultimaTecla=1;
+         return;
+      }
+   } 
+   return;
+}
+
+#INT_TIMER0
+void isr_timer0(){
+   #USE FAST_IO (b)
+   int col = input_c()&7;
+   int row = (input_b()&0xF0)>>4;
+   #USE STANDARD_IO (b)
+   if(col==7){
+      switch(row){
+         case 0x0E:
+            OFF(F1);
+            FLT(F0);
+            break;
+         case 0x0D:
+            OFF(F2);
+            FLT(F1);
+            break;
+         case 0x0B:
+            OFF(F3);
+            FLT(F2);
+            break;
+         case 0x07:
+            OFF(F0);
+            FLT(F3);
+            break;
+      }
+      /*if(input_state(F0)==0){
+         OFF(F1);
+         FLT(F0);
+         return;
+      }
+      if(input_state(F1)==0){
+         OFF(F2);
+         FLT(F1);
+         return;
+      }
+      if(input_state(F2)==0){
+         OFF(F3);
+         FLT(F2);
+         return;
+      }
+      if(input_state(F3)==0){
+         OFF(F0);
+         FLT(F3);
+         return;
+      }*/
+   }
+   return;
+}
+void tecl_mode(int1 modo){
+   //Modo escaneo: lee todo el teclado
+   if(modo){
+      SETUP_TIMER_0(T0_INTERNAL|T0_8_BIT); //Cambiar de fila cada 128uS
+      enable_interrupts(INT_TIMER0);
+      enable_interrupts(INT_EXT2);
+      enable_interrupts(INT_RB4);
+      enable_interrupts(INT_RC0);
+      enable_interrupts(INT_RB);
+      enable_interrupts(INT_RC);
+      return;
+   }
+   //Modo estatico: solo lee X y -/
+   disable_interrupts(INT_TIMER0);
+   FLT(F3);
+   FLT(F2);
+   FLT(F1);
+   OFF(F0);
+   return;
+}
+void tecl_init(){
+   SET_TRIS_B(0xF5);
+   port_b_pullups(0xF5);
+   SET_TRIS_C(0x83);
+   tecl_mode(Estatico);
+   delay_us(1);
+   EXT_INT_EDGE(H_TO_L);
+   enable_interrupts(INT_EXT2);
+   enable_interrupts(INT_RB4);
+   enable_interrupts(INT_RC0);
+   enable_interrupts(INT_RB);
+   enable_interrupts(INT_RC);
+   ultimaTecla = _VISTO;
+}
+#endif

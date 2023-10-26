@@ -1,0 +1,113 @@
+#ifndef _MAIN_UTILITY
+#define _MAIN_UTILITY
+void print_status(int s){
+   switch(s){
+      case 1:
+         TX_COLOR = ST7789_GREEN;
+         printf(tft_putc,"OK");
+         break;
+      case -1:
+         TX_COLOR = ST7789_RED;
+         printf(tft_putc,"ERROR");
+         break;
+      case 0:
+         TX_COLOR = ST7789_YELLOW;
+         printf(tft_putc,"ABNORMAL");
+         break;
+   }
+   TX_COLOR = ST7789_WHITE;
+   return;
+}
+void init_sequence(){
+   int global_status=0;
+   int status = 1;
+   ON(CS2);
+   tft_init();
+   delay_ms(1);
+   printf(tft_putc,"\fDISPLAY TFT: ");
+   print_status(status);
+   global_status = status+1; 
+   
+   printf(tft_putc,"\nINICIANDO TECLADO");
+   tecl_init();
+   printf(tft_putc,"\nTECLADO: ");
+   print_status(status);
+   global_status <<= 2;
+   global_status += status+1;
+   
+   printf(tft_putc,"\nINICIANDO TC77");
+   delay_ms(400);
+   float Temperatura=0;
+   int M_ID;
+   M_ID = tc77_init(&Temperatura);
+   printf(tft_putc,"\nTEMP:%f\nM_ID:%x\nMANUFACTURER: ",Temperatura, M_ID);
+   if(M_ID==0x54) printf(tft_putc,"MICROCHIP");
+   else printf(tft_putc,"UNKNOWN");
+   printf(tft_putc,"\nTC77: ");
+   if(M_ID!=0x54) status = 0;
+   if(Temperatura <= -99) status = -1;
+   print_status(status);
+   global_status <<= 2;
+   global_status += status+1;
+   
+   bool errorFlag=0;
+   bool abnorFlag=0;
+   printf(tft_putc,"\n\n");
+   if(global_status == 0x2A){
+      TX_COLOR = ST7789_GREEN;
+      printf(tft_putc,"HORNO LISTO");
+   }else{
+      if(global_status&3==1){
+         abnorFlag=1;
+         TX_COLOR = ST7789_YELLOW;
+         printf(tft_putc,"TC77 ABONORMAL");
+      }else if(global_status&3==0){
+         errorFlag=1;
+         TX_COLOR = ST7789_RED;
+         printf(tft_putc,"TC77 ERROR");
+      }
+      global_status>>=2;
+      
+      if(global_status&3==1){
+         abnorFlag=1;
+         TX_COLOR = ST7789_YELLOW;
+         printf(tft_putc,"TECLADO ABONORMAL");
+      }else if(global_status&3==0){
+         errorFlag=1;
+         TX_COLOR = ST7789_RED;
+         printf(tft_putc,"TECLADO ERROR");
+      }
+      global_status>>=2;
+      
+      if(global_status&3==1){
+         abnorFlag=1;
+         TX_COLOR = ST7789_YELLOW;
+         printf(tft_putc,"DISPLAY TFT ABONORMAL");
+      }else if(global_status&3==0){
+         errorFlag=1;
+         TX_COLOR = ST7789_RED;
+         printf(tft_putc,"DISPLAY TFT ERROR");
+      }
+      global_status>>=2;
+      
+      if(errorFlag){
+         tecl_mode(Escaneo);
+         ultimaTecla=_VISTO;
+         printf(tft_putc,"OCURRIERON ERRORES\nPRESIONE CUALQUIER TECLA PARA REINICIAR\n O APAGE Y PRENDA EL EQUIPO");
+         while(ultimaTecla==_VISTO);
+         reset_cpu();
+      }else{
+         tecl_mode(Estatico);
+         ultimaTecla=_VISTO;
+         printf(tft_putc,"DISPOSITIVOS CON ABNORMALIDADES\nPRESIONE: SI PARA CONTINUAR\nO NO PARA REINICIAR\nO APAGE Y PRENDA EL EQUIPO");
+         while(ultimaTecla==_VISTO){
+            if(ultimaTecla==_TICK) break;
+            if(ultimaTecla==_X)    reset_cpu();
+            ultimaTecla=_VISTO;
+         }
+      }
+   }
+   TX_COLOR = ST7789_WHITE;
+   delay_ms(1);
+}
+#endif

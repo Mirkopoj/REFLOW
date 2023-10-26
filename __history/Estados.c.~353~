@@ -1,0 +1,701 @@
+#ifndef _ESTADOS
+#define _ESTADOS
+#include "Prototipos.c"
+#include "Auxiliares_Estados.c"
+//Funciones de estado
+int SeleccionDePerfil(){
+   Cursor(2,3);
+   while(1){
+      if(ultimaTecla==_X){
+         ultimaTecla=_VISTO;
+         return _CargarValores;
+      }
+      if(ultimaTecla==_TICK){
+         ultimaTecla=_VISTO;
+         return _Perfiles;
+          
+      }
+   }
+}
+int Perfiles(int *nPuntos,struct Punto *Curva){
+   int nPerfil=(config&0xE0)>>5;
+   if(nPerfil==0)nPerfil=1;
+   printPerfiles();
+   Cursor(3*(nPerfil-1)+1,1);
+   GrafFrame();
+   printVacio();
+   GrafPerfil(nPuntos, Curva, nPerfil);
+   while(1){
+      if(ultimaTecla==_X){
+         ultimaTecla=_VISTO;
+         if(nPerfil>5) nPerfil = 1;
+         else nPerfil++;
+         Cursor(3*(nPerfil-1)+1,1);
+         GrafPerfil(nPuntos, Curva, nPerfil);
+      }
+      if(ultimaTecla==_TICK){
+         ultimaTecla=_VISTO;
+         if(nPerfil>5){
+            fillRect(_width-9,_height-14,2,5,BG_COLOR);
+            printMenuPrincipal();
+            return _SeleccionDePerfil;
+         }
+         config=(config&0x1F)|(nPerfil<<5);
+         tft_gotoxy(0,0);
+         printf(tft_putc,"PERFIL %d:\n",nPerfil);
+         if(perfilVacio(nPerfil)){
+            printf(tft_putc," >CREAR");
+            fillRect(X,Y-8,_width-X,8,BG_COLOR);
+            return _Perfil_Crear;
+         }else{
+            printf(tft_putc,"  CARGAR  EDITAR  VOLVER ");
+            return _Perfil_Cargar;
+         }
+      }
+   } 
+}
+   int Perfil_Crear(){
+      while(1){
+         if(ultimaTecla==_X){
+            ultimaTecla=_VISTO;
+            return _Perfiles;
+             
+         }
+         if(ultimaTecla==_TICK){
+            ultimaTecla=_VISTO;
+            return _CargarPunto;
+             
+         }
+      }
+   }
+   int Perfil_Cargar(){
+      Cursor(1,1);
+      while(1){
+         if(ultimaTecla==_X){
+            ultimaTecla=_VISTO;
+            return _Perfil_Editar;  
+         }
+         if(ultimaTecla==_TICK){
+            ultimaTecla=_VISTO;
+            return _Iniciar;  
+         }
+      }
+   }
+   int Perfil_Editar(){
+      Cursor(9,1);
+      while(1){
+         if(ultimaTecla==_X){
+            ultimaTecla=_VISTO;
+            return _Perfil_Volver;
+             
+         }
+         if(ultimaTecla==_TICK){
+            ultimaTecla=_VISTO;
+            return _CargarPunto;
+         }
+      }
+   }
+   int Perfil_Volver(){
+      Cursor(17,1);
+      while(1){
+         if(ultimaTecla==_X){
+            ultimaTecla=_VISTO;
+            return _Perfil_Cargar;
+         }
+         if(ultimaTecla==_TICK){
+            ultimaTecla=_VISTO;
+            return _Perfiles;
+             
+         }
+      }
+   }
+int CargarValores(int *nPuntos){
+   Cursor(2,5);
+   *nPuntos=1;
+   while(1){
+      if(ultimaTecla==_X){
+         ultimaTecla=_VISTO;
+         return _Configuracion;
+      }
+      if(ultimaTecla==_TICK){
+         ultimaTecla=_VISTO;
+         config=(config&0x1F);
+         printf(tft_putc,"\fCARGAR VALORES:");
+         GrafFrame();
+         return _CargarPunto;
+          
+      }
+   } 
+}
+int Configuracion(){
+   Cursor(2,7);
+   while(1){
+      if(ultimaTecla==_X){
+         ultimaTecla=_VISTO;
+         config=(config&0x1F)|(1<<5);  //Ultimo perfil = 001
+         return _SeleccionDePerfil;
+          
+      }
+      if(ultimaTecla==_TICK){
+         ultimaTecla=_VISTO;
+         printConfiguracion();
+         return _Config_Tiempo;
+          
+      }
+   }
+}
+   int Config_Tiempo(){
+      Cursor(2,3);
+      while(1){
+         if(ultimaTecla==_X){
+            ultimaTecla=_VISTO;
+            return _Config_Temp;
+             
+         }
+         if(ultimaTecla==_TICK){
+            ultimaTecla=_VISTO;
+            printTiempo();
+            return _Config_Tiempo_Formato;
+             
+         }
+      }
+   }
+      int Config_Tiempo_Formato(){
+         Cursor(5,5);
+         while(1){
+            if(ultimaTecla==_X){
+               ultimaTecla=_VISTO;
+               return _Config_Tiempo_Origen;
+                
+            }
+            if(ultimaTecla==_TICK){
+               ultimaTecla=_VISTO;
+               printFormato();
+               return _Config_Tiempo_Formato_ssss;
+                
+            }
+         }
+      }
+         int Config_Tiempo_Formato_ssss(){
+            Cursor(8,7);
+            while(1){
+               if(ultimaTecla==_X){
+                  ultimaTecla=_VISTO;
+                  return _Config_Tiempo_Formato_mmss;
+                   
+               }
+               if(ultimaTecla==_TICK){
+                  ultimaTecla=_VISTO;
+                  write_eeprom(0x00,~(((~read_eeprom(0x00))&(~16))|0));
+                  config=~read_eeprom(0x00);
+                  return _Config_Tiempo_Formato_Volver;
+                   
+               }
+            }
+         }
+         int Config_Tiempo_Formato_mmss(){
+           Cursor(8,9);
+            while(1){
+               if(ultimaTecla==_X){
+                  ultimaTecla=_VISTO;
+                  return _Config_Tiempo_Formato_Volver;
+                   
+               }
+               if(ultimaTecla==_TICK){
+                  ultimaTecla=_VISTO;
+                  write_eeprom(0x00,~(((~read_eeprom(0x00))&(~16))|16));
+                  config=~read_eeprom(0x00);
+                  return _Config_Tiempo_Formato_Volver;
+                   
+               }
+            }
+         }
+         int Config_Tiempo_Formato_Volver(){
+            Cursor(8,11);
+            while(1){
+               if(ultimaTecla==_X){
+                  ultimaTecla=_VISTO;
+                  return _Config_Tiempo_Formato_ssss;
+                   
+               }
+               if(ultimaTecla==_TICK){
+                  ultimaTecla=_VISTO;
+                  printTiempo();
+                  return _Config_Tiempo_Formato;
+                   
+               }
+            }
+         }
+      int Config_Tiempo_Origen(){
+         Cursor(5,7);
+         while(1){
+            if(ultimaTecla==_X){
+               ultimaTecla=_VISTO;
+               return _Config_Tiempo_Volver;
+                
+            }
+            if(ultimaTecla==_TICK){
+               ultimaTecla=_VISTO;
+               printOrigen();
+               return _Config_Tiempo_Origen_Relativo;
+                
+            }
+         }
+      }
+         int Config_Tiempo_Origen_Relativo(){
+            Cursor(8,7);
+            while(1){
+               if(ultimaTecla==_X){
+                  ultimaTecla=_VISTO;
+                  return _Config_Tiempo_Origen_Absoluto;
+                   
+               }
+               if(ultimaTecla==_TICK){
+                  ultimaTecla=_VISTO;
+                  write_eeprom(0x00,~(((~read_eeprom(0x00))&(~8))|0));
+                  config=~read_eeprom(0x00);
+                  return _Config_Tiempo_Origen_Volver;
+                   
+               }
+            }
+         }
+         int Config_Tiempo_Origen_Absoluto(){
+            Cursor(8,9);
+            while(1){
+               if(ultimaTecla==_X){
+                  ultimaTecla=_VISTO;
+                  return _Config_Tiempo_Origen_Volver;
+                   
+               }
+               if(ultimaTecla==_TICK){
+                  ultimaTecla=_VISTO;
+                  write_eeprom(0x00,~(((~read_eeprom(0x00))&(~8))|8));
+                  config=~read_eeprom(0x00);
+                  return _Config_Tiempo_Origen_Volver;
+                   
+               }
+            }
+         }
+         int Config_Tiempo_Origen_Volver(){
+            Cursor(8,11);
+            while(1){
+               if(ultimaTecla==_X){
+                  ultimaTecla=_VISTO;
+                  return _Config_Tiempo_Origen_Relativo;
+                   
+               }
+               if(ultimaTecla==_TICK){
+                  ultimaTecla=_VISTO;
+                  printTiempo();
+                  return _Config_Tiempo_Origen;
+                   
+               }
+            }
+         }
+      int Config_Tiempo_Volver(){
+         Cursor(5,9);
+         while(1){
+            if(ultimaTecla==_X){
+               ultimaTecla=_VISTO;
+               return _Config_Tiempo_Formato;
+                
+            }
+            if(ultimaTecla==_TICK){
+               ultimaTecla=_VISTO;
+               printConfiguracion();
+               return _Config_Tiempo;
+                
+            }
+         }
+      }
+   int Config_Temp(){
+      Cursor(2,5);
+      while(1){
+         if(ultimaTecla==_X){
+            ultimaTecla=_VISTO;
+            return _Config_Idioma;
+             
+         }
+         if(ultimaTecla==_TICK){
+            ultimaTecla=_VISTO;
+            printTemperatura();
+            return _Config_Temp_C;
+             
+         }
+      }
+   }
+      int Config_Temp_C(){
+         Cursor(5,5);
+         while(1){
+            if(ultimaTecla==_X){
+               ultimaTecla=_VISTO;
+               return _Config_Temp_F;
+                
+            }
+            if(ultimaTecla==_TICK){
+               ultimaTecla=_VISTO;
+               write_eeprom(0x00,~(((~read_eeprom(0x00))&(~4))|0));
+               config=~read_eeprom(0x00);
+               return _Config_Temp_Volver;
+                
+            }
+         }
+      }
+      int Config_Temp_F(){
+         Cursor(5,7);
+         while(1){
+            if(ultimaTecla==_X){
+               ultimaTecla=_VISTO;
+               return _Config_Temp_Volver;
+            }
+            if(ultimaTecla==_TICK){
+               ultimaTecla=_VISTO;
+               write_eeprom(0x00,~(((~read_eeprom(0x00))&(~4))|4));
+               config=~read_eeprom(0x00);
+               return _Config_Temp_Volver;
+            }
+         }
+      }
+      int Config_Temp_Volver(){
+         Cursor(5,9);
+         while(1){
+            if(ultimaTecla==_X){
+               ultimaTecla=_VISTO;
+               return _Config_Temp_C;
+                
+            }
+            if(ultimaTecla==_TICK){
+               ultimaTecla=_VISTO;
+               printConfiguracion();
+               return _Config_Temp;
+                
+            }
+         }
+      }
+   int Config_Idioma(){
+      Cursor(2,7);
+      while(1){
+         if(ultimaTecla==_X){
+            ultimaTecla=_VISTO;
+            return _Config_Volver;
+             
+         }
+         if(ultimaTecla==_TICK){
+            ultimaTecla=_VISTO;
+            printIdioma();
+            return _Config_Idioma_Es;  
+         }
+      }
+   }
+      int Config_Idioma_Es(){
+         Cursor(5,5);
+         while(1){
+            if(ultimaTecla==_X){
+               ultimaTecla=_VISTO;
+               return _Config_Idioma_En;
+                
+            }
+            if(ultimaTecla==_TICK){
+               ultimaTecla=_VISTO;
+               write_eeprom(0x00,~(((~read_eeprom(0x00))&(~3))|0));
+               config=~read_eeprom(0x00);
+               printIdioma();
+               return _Config_Idioma_Volver;
+                
+            }
+         }
+      }
+      int Config_Idioma_En(){
+         Cursor(5,7);
+         while(1){
+            if(ultimaTecla==_X){
+               ultimaTecla=_VISTO;
+               return _Config_Idioma_Fr;
+                
+            }
+            if(ultimaTecla==_TICK){
+               ultimaTecla=_VISTO;
+               write_eeprom(0x00,~(((~read_eeprom(0x00))&(~3))|1));
+               config=~read_eeprom(0x00);
+               printIdioma();
+               return _Config_Idioma_Volver;
+                
+            }
+         }
+      }
+      int Config_Idioma_Fr(){
+         Cursor(5,9);
+         while(1){
+            if(ultimaTecla==_X){
+               ultimaTecla=_VISTO;
+               return _Config_Idioma_Ru;
+                
+            }
+            if(ultimaTecla==_TICK){
+               ultimaTecla=_VISTO;
+               write_eeprom(0x00,~(((~read_eeprom(0x00))&(~3))|2));
+               config=~read_eeprom(0x00);
+               printIdioma();
+               return _Config_Idioma_Volver;
+                
+            }
+         }
+      }
+      int Config_Idioma_Ru(){
+         Cursor(5,11);
+         while(1){
+            if(ultimaTecla==_X){
+               ultimaTecla=_VISTO;
+               return _Config_Idioma_Volver;
+                
+            }
+            if(ultimaTecla==_TICK){
+               ultimaTecla=_VISTO;
+               write_eeprom(0x00,~(((~read_eeprom(0x00))&(~3))|3));
+               config=~read_eeprom(0x00);
+               printIdioma();
+               return _Config_Idioma_Volver;
+                
+            }
+         }
+      }
+      int Config_Idioma_Volver(){
+         Cursor(5,13);
+         while(1){
+            if(ultimaTecla==_X){
+               ultimaTecla=_VISTO;
+               return _Config_Idioma_Es;
+                
+            }
+            if(ultimaTecla==_TICK){
+               ultimaTecla=_VISTO;
+               printConfiguracion();
+               return _Config_Idioma;
+                
+            }
+         }
+      }
+   int Config_Volver(){
+      Cursor(2,9);
+      while(1){
+         if(ultimaTecla==_X){
+            ultimaTecla=_VISTO;
+            return _Config_Tiempo;
+             
+         }
+         if(ultimaTecla==_TICK){
+            ultimaTecla=_VISTO;
+            printMenuPrincipal();
+            return _Configuracion;
+             
+         }
+      }
+   }
+int CargarPunto(int *nPuntos,struct Punto *Curva){
+   int temp=0;
+   long tiempo=0;
+   char unidad='C';
+   if((config&4)>>2)unidad='F';
+   int subestado=_CargarTemperatura;
+   tft_gotoxy(0,1);
+   printf(tft_putc,"PUNTO %d:",*nPuntos);
+   fillRect(X,10,_width-30-X,8,BG_COLOR);
+   tft_gotoxy(X_MAX-1,0);
+   printf(tft_putc,"°%c",unidad);
+   print_temp(0);
+   print_tiempo(0);
+   tecl_mode(escaneo);
+   while(1){
+      switch(subestado){
+         case _CargarTemperatura:
+            subestado=CargarTemperatura(&temp,nPuntos);
+            break;
+         case _CargarMinutos:
+            subestado=CargarMinutos(&tiempo);
+            break;
+         case _CargarSegundos:
+            subestado=CargarSegundos(&tiempo);
+            break;
+         case _CargarTiempo:
+            subestado=CargarTiempo(&tiempo);
+            break;
+         case _CheckearSiValido:
+            subestado=CheckearSiValido(tiempo, temp, *nPuntos, Curva);
+            break;
+         default:
+            return subestado;
+      }
+   }
+}
+int Iniciar(int *nPuntos,struct Punto *Curva){
+   fillRect(X_BEGIN,Y_BEGIN-8,_width,16,BG_COLOR);
+   tft_gotoxy(0,0);
+   printf(tft_putc,"¿INICIAR?");
+   while(1){
+      if(ultimaTecla==_X){
+         ultimaTecla=_VISTO;
+         *nPuntos=1;
+         return _SeleccionDePerfil;
+          
+      }
+      if(ultimaTecla==_TICK){
+         ultimaTecla=_VISTO;
+         Graf(*nPuntos, Curva, 0);
+         if((config&0xE0)!=((~read_eeprom(0x00))&0xE0)) write_eeprom(0x00,~(((~read_eeprom(0x00))&(~0xE0))|(config&0xE0)));
+         return _Soldando;
+          
+      }
+   }
+}
+int PuntoNoValido(){
+   tecl_mode(escaneo);
+   switch(config&0x03){
+         case 0:
+            disable_interrupts(global);
+            printf(tft_putc,"\fPUNTO NO VALIDO");
+            enable_interrupts(global);
+            break;
+         case 1:
+            disable_interrupts(global);
+            printf(tft_putc,"\fPOINT NOT VALID");
+            enable_interrupts(global);
+            break;
+         case 2:
+            disable_interrupts(global);
+            printf(tft_putc,"\fPOINT NON VALIDE");
+            enable_interrupts(global);
+            break;
+         case 3:
+            disable_interrupts(global);
+            printf(tft_putc,"\fTO×KA HE\nÄE]CTB\\TEËÜHA");
+            enable_interrupts(global);
+            break;
+      }
+      while(ultimaTecla==_VISTO){}
+      ultimaTecla=_VISTO;
+      tecl_mode(estatico);
+      return _CargarPunto;
+       
+}
+int OtroPunto(int *nPuntos, struct Punto *Curva){
+   int nPerfil=(config&0xE0)>>5;
+   tft_gotoxy(0,1);
+   printf(tft_putc," >¿OTRO PUNTO?"); 
+   tft_gotoxy(X_MAX-5,1);
+   printf(tft_putc," "); 
+   while(1){
+      if(ultimaTecla==_X){
+         ultimaTecla=_VISTO;
+         return guardarPuntos(nPerfil,*nPuntos,Curva); 
+      }
+      if(ultimaTecla==_TICK){
+         ultimaTecla=_VISTO;
+         (*nPuntos)++;
+         return _CargarPunto;
+      }
+   }  
+}
+int Soldando(int nPuntos, struct punto *Curva){
+   printSoldando(); //No solo imprime tmb in habilita el tick
+   //Varibles para el seguimiento e inicializacion de los modulos
+   int1 EtapaEnCurso, TemperauraNoAlcanzada, SoldandoEnPantalla = TRUE;
+   float Temp, K;
+   timer1_init();
+   K=(freq)/(4*65536*presc); //Frecuencia de saturacion del Timer1
+   adc_init();
+   delay_ms(1);
+   Temp=MedirTemp();
+   delay_ms(1);
+   Setpoint=Temp;
+   //Variables dibujo
+   int contTotal=0,prevCont=0, Pixel_X=0;
+   int yM=(_height-13), xM=(_width-30);
+   struct Punto Max;
+   Max.Tiempo = 0;
+   Max.Temperatura = 0;
+   for(int i=0; i<nPuntos; i++){
+      if(Curva[i].Temperatura>Max.Temperatura)Max.Temperatura=Curva[i].Temperatura;
+      Max.Tiempo += Curva[i].Tiempo;
+   }
+   float prev_y=yM;
+   float Kd=(float)(xM-1)/Max.Tiempo; //Pixeles/segundo
+   //Bucle de soldado
+   for(int i=0; i<nPuntos; i++){
+      //Determinar el delta termico de la etapa
+      dt=((float)Curva[i].Temperatura-Temp)/(Curva[i].Tiempo*K);
+      //Resetear los flags de finalizacion
+      EtapaEnCurso = TRUE;
+      TemperauraNoAlcanzada = TRUE;
+      cont = 0;
+      //Bucle de la etapa
+      while(EtapaEnCurso||TemperauraNoAlcanzada){
+         //Etapa terminada
+         if(cont >= k*Curva[i].Tiempo) EtapaEnCurso = FALSE;
+         //Medir temperatura
+         Temp=MedirTemp();
+         //Prender o apagar los elementos activos del horno
+         if(Temp<=(Setpoint-_H)) ON(SALIDA);
+         if(Temp>=(Setpoint+_H)) OFF(SALIDA);
+         //Temperatura Alcanzada
+         if(abs(Temp-Curva[i].Temperatura)<_H) TemperauraNoAlcanzada = FALSE;
+         //Manejo de teclas
+         if(ultimaTecla==_X){
+            ultimaTecla=_VISTO;
+            if(SoldandoEnPantalla){
+               SoldandoEnPantalla = FALSE;
+               printCancelar();
+            } else {
+               printSoldando();
+               SoldandoEnPantalla = TRUE;
+            }
+         }
+         if(ultimaTecla==_TICK){ //Solo posible si se apreto una X antes
+            ultimaTecla=_VISTO;
+            return _Terminado;
+         }
+         if(prevCont!=Cont){
+            prevCont=Cont;
+            ContTotal++;
+            Pixel_X = (float)ContTotal*(Kd/K);
+            y = yM-((float)(_height-36)/Max.Temperatura)*Temp;
+            if(prev_y-y>=0) drawVLine(Pixel_X+22,y,abs(y-prev_y)+1,HeatMap(0,255,~(int)Temp));
+            else drawVLine(Pixel_X+22,prev_y,abs(y-prev_y)+1,HeatMap(0,255,~(int)Temp));
+         }
+      }
+   }
+   return _Terminado;
+}
+int Terminado(struct punto *Curva){
+   tecl_mode(escaneo);
+   disable_interrupts(INT_TIMER1);
+   OFF(SALIDA);
+   switch(config&0x03){
+         case 0:
+            disable_interrupts(global);
+            printf(tft_putc,"\fTERMINADO");
+            enable_interrupts(global);
+            break;
+         case 1:
+            disable_interrupts(global);
+            printf(tft_putc,"\fENDED");
+            enable_interrupts(global);
+            break;
+         case 2:
+            disable_interrupts(global);
+            printf(tft_putc,"\fFINALISE");
+            enable_interrupts(global);
+            break;
+         case 3:
+            disable_interrupts(global);
+            printf(tft_putc,"\f[AKOH×EHHÛ]");
+            enable_interrupts(global);
+            break;
+      }
+      while(ultimaTecla==_VISTO){}
+      ultimaTecla=_VISTO;
+      tecl_mode(estatico);
+      curva_init(Curva);
+      if((config&0xE0)>>5==0) return _CargarValores;
+      return _SeleccionDePerfil;  
+}
+#endif

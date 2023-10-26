@@ -1,0 +1,78 @@
+#ifndef _PROTOS
+#define _PROTOS
+//Prototipos
+int SeleccionDePerfil();
+   int Perfil_Crear();
+   int Perfil_Cargar();
+   int Perfil_Editar();
+   int Perfil_Volver();
+int CargarValores();
+int Configuracion();
+   int Config_Tiempo();
+      int Config_Tiempo_Formato();
+         int Config_Tiempo_Formato_mmss();
+         int Config_Tiempo_Formato_ssss();
+         int Config_Tiempo_Formato_Volver();
+      int Config_Tiempo_Origen();
+         int Config_Tiempo_Origen_Absoluto();
+         int Config_Tiempo_Origen_Relativo();
+         int Config_Tiempo_Origen_Volver();
+      int Config_Tiempo_Volver();
+   int Config_Temp();
+      int Config_Temp_C();
+      int Config_Temp_F();
+      int Config_Temp_Volver();
+   int Config_Idioma();
+      int Config_Idioma_Es();
+      int Config_Idioma_En();
+      int Config_Idioma_Fr();
+      int Config_Idioma_Ru();
+      int Config_Idioma_Volver();
+   int Config_Volver();
+int CargarPunto();
+int Iniciar();
+int PuntoNoValido();
+int OtroPunto();
+int Soldando();
+int Cancelar();
+int Terminado();
+
+//Numerando los estados para el switch
+enum{
+    _SeleccionDePerfil,
+       _Perfil_Crear,
+       _Perfil_Cargar,
+       _Perfil_Editar,
+       _Perfil_Volver,
+    _CargarValores,
+    _Configuracion,
+       _Config_Tiempo,
+          _Config_Tiempo_Formato,
+             _Config_Tiempo_Formato_mmss,
+             _Config_Tiempo_Formato_ssss,
+             _Config_Tiempo_Formato_Volver,
+          _Config_Tiempo_Origen,
+             _Config_Tiempo_Origen_Absoluto,
+             _Config_Tiempo_Origen_Relativo,
+             _Config_Tiempo_Origen_Volver,
+          _Config_Tiempo_Volver,
+       _Config_Temp,
+          _Config_Temp_C,
+          _Config_Temp_F,
+          _Config_Temp_Volver,
+       _Config_Idioma,
+          _Config_Idioma_Es,
+          _Config_Idioma_En,
+          _Config_Idioma_Fr,
+          _Config_Idioma_Ru,
+          _Config_Idioma_Volver,
+       _Config_Volver,
+    _CargarPunto,
+    _Iniciar,
+    _PuntoNoValido,
+    _OtroPunto,
+    _Soldando,
+    _Cancelar,
+    _Terminado
+};
+#endif
