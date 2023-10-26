@@ -1,4 +1,4 @@
-#include <18f45K50.h>
+#include <18f25K50.h>
 #device ADC=10
 #fuses nowdt, nolvp, NOPROTECT, NOPUT,NOBROWNOUT, NOWRT,NOWRTC, NOMCLR
 #define freq 8000000

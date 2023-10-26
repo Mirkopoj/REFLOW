@@ -1,8 +1,8 @@
 
-ROM used:   30128/32768 (92%)
+ROM used:   30120/32768 (92%)
             32764/32768 (100%) including unused fragments
 
-            7.7 Average locations per line
+            7.8 Average locations per line
             17.7 Average locations per statement
 
 RAM used:   456/2048 (22%) at main() level
@@ -14,10 +14,10 @@ Stack size: 31
 Lines Stmts  %   Files
 ----- ----- ---  -----
   159    92   5  REFLOW.c
-  948     0   0  D:\Program Files (x86)\PICC\Devices\18f45K50.h
+  920     0   0  C:\Program Files (x86)\PICC\devices\18f25K50.h
   126     0   0  Globales_y_defs.c
   544   196  12  ST7789.c
-  168     0   0  D:\Program Files (x86)\PICC\Drivers\stdint.h
+  168     0   0  C:\Program Files (x86)\PICC\drivers\stdint.h
   154   104   6  Pad.c
    36    18   1  TC77.c
   146   102   6  Graf.c
@@ -26,7 +26,7 @@ Lines Stmts  %   Files
    79     0   0  Prototipos.c
   671   506  30  Auxiliares_Estados.c
 ----- -----
- 3898  1703 Total
+ 3870  1703 Total
 
 Page ROM  %  RAM    Vol Diff  Functions:
 ---- --- --- ---    --- ----  ----------
@@ -40,7 +40,7 @@ Page ROM  %  RAM    Vol Diff  Functions:
 0    188   0    0    513  1.8  tft_init
 0    138   0   10    747  4.8  setAddrWindow
 0    214   0    3   1224  6.8  setRotation
-0     34   0    0             @goto27287
+0     34   0    0             @goto28158
 0     44   0    3             @DIV88
 0     94   0    7    279  4.2  drawPixel
 0    160   0   10    595  7.7  drawHLine
@@ -71,175 +71,175 @@ Page ROM  %  RAM    Vol Diff  Functions:
 0     62   0    4             @SFTOI
 0    148   0    2    298  2.8  GrafFrame
 0    382   1   14    917  8.4  GrafData
-0    198   0    9             @PRINTF_LU_708
+0    198   0    9             @PRINTF_LU_701
 0    220   0    4    791  5.7  printVacio
-0      8   0    0             @const850
-0     32   0    2             @PSTRINGC_708
-0      6   0    0             @const855
-0      6   0    0             @const856
-0      6   0    0             @const857
-0      6   0    0             @const858
-0      8   0    0             @const859
-0     34   0    0             @goto27942
+0      8   0    0             @const843
+0     32   0    2             @PSTRINGC_701
+0      6   0    0             @const848
+0      6   0    0             @const849
+0      6   0    0             @const850
+0      6   0    0             @const851
+0      8   0    0             @const852
+0     34   0    0             @goto29146
 0    602   1   15    917 10.2  GrafCurvaPerfil
 0     42   0    2    129  2.2  Cursor
 0     34   0    2    101  3.1  printEspacios
-0      2   0    0             @const875
+0      2   0    0             @const868
 0    102   0    1    313  4.9  print_status
-0      6   0    0             @const879
-0     10   0    0             @const880
+0      6   0    0             @const872
+0     10   0    0             @const873
 0    810   1    9   3225  8.9  init_sequence
-0     16   0    0             @const884
-0     20   0    0             @const885
-0     12   0    0             @const886
-0     16   0    0             @const887
-0     32   0    0             @const890
-0     40   0    3             @PSTRINGCN_708
+0     16   0    0             @const877
+0     20   0    0             @const878
+0     12   0    0             @const879
+0     16   0    0             @const880
+0     32   0    0             @const883
+0     40   0    3             @PSTRINGCN_701
 0     68   0    5             @FTOSD
 0    148   0   13             @DIV3232
-0    432   1   13             @PRINTF_L32D_708FPFPF
-0     76   0    2             @PRINTF_X_708
-0     10   0    0             @const904
-0      8   0    0             @const905
-0      8   0    0             @const906
-0     12   0    0             @const910
-0     16   0    0             @const911
-0     12   0    0             @const912
-0     18   0    0             @const913
-0     14   0    0             @const914
-0     22   0    0             @const915
-0     18   0    0             @const916
-0     88   0    0             @const917
-0    108   0    0             @const918
+0    432   1   13             @PRINTF_L32D_701FPFPF
+0     76   0    2             @PRINTF_X_701
+0     10   0    0             @const897
+0      8   0    0             @const898
+0      8   0    0             @const899
+0     12   0    0             @const903
+0     16   0    0             @const904
+0     12   0    0             @const905
+0     18   0    0             @const906
+0     14   0    0             @const907
+0     22   0    0             @const908
+0     18   0    0             @const909
+0     88   0    0             @const910
+0    108   0    0             @const911
 0    128   0    5    215  5.0  perfilVacio
 0    118   0    9    424  6.0  GrafPerfil
 0     70   0    0    268  4.3  printPerfilesLit
-0     10   0    0             @const1000
-0     10   0    0             @const1001
-0      8   0    0             @const1002
-0      8   0    0             @const1003
-0     34   0    0             @goto28295
+0     10   0    0             @const993
+0     10   0    0             @const994
+0      8   0    0             @const995
+0      8   0    0             @const996
+0     34   0    0             @goto29701
 0     70   0    0    268  4.3  printConfiguracionLit
-0     14   0    0             @const1006
-0     10   0    0             @const1007
-0     12   0    0             @const1008
-0     10   0    0             @const1009
-0     34   0    0             @goto28319
+0     14   0    0             @const999
+0     10   0    0             @const1000
+0     12   0    0             @const1001
+0     10   0    0             @const1002
+0     34   0    0             @goto29728
 0     82   0    0    293  4.3  printTiempoLit
-0      8   0    0             @const1012
-0      6   0    0             @const1013
-0      6   0    0             @const1014
-0      8   0    0             @const1015
-0     34   0    0             @goto28342
+0      8   0    0             @const1005
+0      6   0    0             @const1006
+0      6   0    0             @const1007
+0      8   0    0             @const1008
+0     34   0    0             @goto29760
 0     82   0    0    293  4.3  printTemperaturaLit
-0     12   0    0             @const1018
-0      6   0    0             @const1019
-0      6   0    0             @const1020
-0      8   0    0             @const1021
-0     34   0    0             @goto28365
+0     12   0    0             @const1011
+0      6   0    0             @const1012
+0      6   0    0             @const1013
+0      8   0    0             @const1014
+0     34   0    0             @goto29786
 0     82   0    0    293  4.3  printIdiomaLit
-0      8   0    0             @const1024
-0     10   0    0             @const1025
-0      8   0    0             @const1026
-0      8   0    0             @const1027
-0     34   0    0             @goto28388
+0      8   0    0             @const1017
+0     10   0    0             @const1018
+0      8   0    0             @const1019
+0      8   0    0             @const1020
+0     34   0    0             @goto29814
 0     82   0    0    293  4.3  printFormatoLit
-0      8   0    0             @const1030
-0      8   0    0             @const1031
-0      8   0    0             @const1032
-0      8   0    0             @const1033
-0     34   0    0             @goto28411
+0      8   0    0             @const1023
+0      8   0    0             @const1024
+0      8   0    0             @const1025
+0      8   0    0             @const1026
+0     34   0    0             @goto29846
 0     82   0    0    293  4.3  printOrigenLit
+0      8   0    0             @const1029
+0     10   0    0             @const1030
+0      8   0    0             @const1031
+0     10   0    0             @const1032
+0     34   0    0             @goto29886
+0     82   0    0    318  4.4  printVolver
+0      8   0    0             @const1035
 0      8   0    0             @const1036
 0     10   0    0             @const1037
-0      8   0    0             @const1038
-0     10   0    0             @const1039
-0     34   0    0             @goto28434
-0     82   0    0    318  4.4  printVolver
-0      8   0    0             @const1042
-0      8   0    0             @const1043
-0     10   0    0             @const1044
-0     14   0    0             @const1045
-0     34   0    0             @goto28458
+0     14   0    0             @const1038
+0     34   0    0             @goto29914
 0     14   0    0     33  1.5  printInit
-0      4   0    0             @const1048
+0      4   0    0             @const1041
 0     46   0    1     76  2.4  printDobleEndl
-0      2   0    0             @const1051
+0      2   0    0             @const1044
 0    212   0    0    867  4.7  printMenuPrincipal
+0     16   0    0             @const1047
+0     10   0    0             @const1048
+0     16   0    0             @const1049
+0     14   0    0             @const1050
+0     34   0    0             @goto29962
+0     16   0    0             @const1052
+0     12   0    0             @const1053
 0     16   0    0             @const1054
-0     10   0    0             @const1055
-0     16   0    0             @const1056
-0     14   0    0             @const1057
-0     34   0    0             @goto28499
-0     16   0    0             @const1059
-0     12   0    0             @const1060
-0     16   0    0             @const1061
-0     18   0    0             @const1062
-0     34   0    0             @goto28518
+0     18   0    0             @const1055
+0     34   0    0             @goto29989
 0     68   0    0    163  2.1  printPerfiles
-0     18   0    0             @const1068
+0     18   0    0             @const1061
 0     74   0    0    187  1.8  printConfiguracion
 0     76   0    0    187  1.8  printTiempo
 0    208   0    0    558  4.2  printFormato
-0      6   0    0             @const1072
-0      6   0    0             @const1073
-0      4   0    0             @const1074
+0      6   0    0             @const1065
+0      6   0    0             @const1066
+0      4   0    0             @const1067
 0    248   0    0    926  4.8  printOrigen
-0     10   0    0             @const1078
-0     10   0    0             @const1079
-0      8   0    0             @const1080
-0     12   0    0             @const1081
-0     34   0    0             @goto28590
-0     10   0    0             @const1083
-0      8   0    0             @const1084
-0      8   0    0             @const1085
-0     12   0    0             @const1086
-0     34   0    0             @goto28609
+0     10   0    0             @const1071
+0     10   0    0             @const1072
+0      8   0    0             @const1073
+0     12   0    0             @const1074
+0     34   0    0             @goto30086
+0     10   0    0             @const1076
+0      8   0    0             @const1077
+0      8   0    0             @const1078
+0     12   0    0             @const1079
+0     34   0    0             @goto30109
 0    148   0    0    280  2.2  printTemperatura
 0    190   0    0    464  2.3  printIdioma
-0      8   0    0             @const1092
-0      8   0    0             @const1093
-0     10   0    0             @const1094
-0      8   0    0             @const1095
+0      8   0    0             @const1085
+0      8   0    0             @const1086
+0     10   0    0             @const1087
+0      8   0    0             @const1088
 0    146   0    1    494  5.1  printSoldando
-0     10   0    0             @const1097
-0     10   0    0             @const1098
-0      8   0    0             @const1099
-0      6   0    0             @const1100
-0     34   0    0             @goto28658
-0      4   0    0             @const1102
+0     10   0    0             @const1090
+0     10   0    0             @const1091
+0      8   0    0             @const1092
+0      6   0    0             @const1093
+0     34   0    0             @goto30178
+0      4   0    0             @const1095
 0    152   0    1    508  5.1  printCancelar
-0     10   0    0             @const1104
-0      8   0    0             @const1105
-0      8   0    0             @const1106
-0     10   0    0             @const1107
-0     34   0    0             @goto28685
-0      2   0    0             @const1109
+0     10   0    0             @const1097
+0      8   0    0             @const1098
+0      8   0    0             @const1099
+0     10   0    0             @const1100
+0     34   0    0             @goto30218
+0      2   0    0             @const1102
 0    136   0    1    453  5.0  printTermiando
-0     10   0    0             @const1111
-0      6   0    0             @const1112
-0     10   0    0             @const1113
-0     12   0    0             @const1114
-0     34   0    0             @goto28712
+0     10   0    0             @const1104
+0      6   0    0             @const1105
+0     10   0    0             @const1106
+0     12   0    0             @const1107
+0     34   0    0             @goto30252
 0     84   0    0    293  4.3  printIniciar
-0     10   0    0             @const1117
-0      6   0    0             @const1118
-0     10   0    0             @const1119
-0     10   0    0             @const1120
-0     34   0    0             @goto28735
-0      2   0    0             @const1122
+0     10   0    0             @const1110
+0      6   0    0             @const1111
+0     10   0    0             @const1112
+0     10   0    0             @const1113
+0     34   0    0             @goto30280
+0      2   0    0             @const1115
 0    108   0    0    331  4.4  printOtroPunto
-0     12   0    0             @const1125
-0     14   0    0             @const1126
-0     12   0    0             @const1127
-0     14   0    0             @const1128
-0     34   0    0             @goto28762
-0      2   0    0             @const1130
+0     12   0    0             @const1118
+0     14   0    0             @const1119
+0     12   0    0             @const1120
+0     14   0    0             @const1121
+0     34   0    0             @goto30317
+0      2   0    0             @const1123
 0    128   0    5    472  4.2  print_temp
-0      4   0    0             @const1135
-0      4   0    0             @const1136
+0      4   0    0             @const1128
+0      4   0    0             @const1129
 0    248   0    8    660  5.8  print_tiempo
-0    200   0    6             @PRINTF_D0_708
+0    200   0    6             @PRINTF_D0_701
 0   1032   2   12   1482 11.6  guardarPuntos
 0    640   1   11   1730 12.5  CargarTemperatura
 0    410   1    6    534  8.1  CargarMinutos
@@ -248,38 +248,38 @@ Page ROM  %  RAM    Vol Diff  Functions:
 0    338   1   14    730  9.2  CheckearSiValido
 0     74   0    0     37  2.3  isr_timer1
 0     16   0    0     69  1.9  timer1_init
-0     44   0    0     80  2.4  adc_init
+0     40   0    0     80  2.4  adc_init
 0    518   1   16    452  7.5  MedirTemp
 0    114   0    7    198  4.5  curva_init
 0     52   0    0    176  3.9  SeleccionDePerfil
 0    748   1    7   3251 11.4  Perfiles
-0      8   0    0             @const1195
-0      8   0    0             @const1196
-0      8   0    0             @const1197
-0      8   0    0             @const1198
-0     34   0    0             @goto29115
-0    200   0    6             @PRINTF_D_708
-0      6   0    0             @const1205
-0      8   0    0             @const1206
-0      6   0    0             @const1207
-0     10   0    0             @const1208
-0     34   0    0             @goto29160
+0      8   0    0             @const1188
+0      8   0    0             @const1189
+0      8   0    0             @const1190
+0      8   0    0             @const1191
+0     34   0    0             @goto30782
+0    200   0    6             @PRINTF_D_701
+0      6   0    0             @const1198
+0      8   0    0             @const1199
+0      6   0    0             @const1200
+0     10   0    0             @const1201
+0     34   0    0             @goto30831
+0      8   0    0             @const1203
+0      6   0    0             @const1204
+0      8   0    0             @const1205
+0     10   0    0             @const1206
+0     34   0    0             @goto30860
+0      8   0    0             @const1208
+0      6   0    0             @const1209
 0      8   0    0             @const1210
-0      6   0    0             @const1211
-0      8   0    0             @const1212
-0     10   0    0             @const1213
-0     34   0    0             @goto29182
-0      8   0    0             @const1215
-0      6   0    0             @const1216
-0      8   0    0             @const1217
-0     14   0    0             @const1218
-0     34   0    0             @goto29201
+0     14   0    0             @const1211
+0     34   0    0             @goto30886
 0     38   0    0    141  3.4  Perfil_Crear
 0     52   0    0    176  3.9  Perfil_Cargar
 0     54   0    0    176  3.9  Perfil_Editar
 0     54   0    0    176  3.9  Perfil_Volver
 0     94   0    4    328  4.9  CargarValores
-0     18   0    0             @const1222
+0     18   0    0             @const1215
 0     64   0    1    270  5.5  Configuracion
 0     56   0    0    193  4.0  Config_Tiempo
 0     54   0    0    193  4.0  Config_Tiempo_Formato
@@ -303,24 +303,24 @@ Page ROM  %  RAM    Vol Diff  Functions:
 0     58   0    0    193  4.0  Config_Idioma_Volver
 0     58   0    0    193  4.0  Config_Volver
 0    484   1   10   1585  8.4  CargarPunto
-0      6   0    0             @const1230
-0      6   0    0             @const1231
-0      6   0    0             @const1232
-0      6   0    0             @const1233
-0     34   0    0             @goto29707
+0      6   0    0             @const1223
+0      6   0    0             @const1224
+0      6   0    0             @const1225
+0      6   0    0             @const1226
+0     34   0    0             @goto31498
 0    262   0    7    679  7.2  Iniciar
 0    168   0    1    592  6.5  PuntoNoValido
-0     16   0    0             @const1240
-0     16   0    0             @const1241
-0     18   0    0             @const1242
-0     24   0    0             @const1243
-0     34   0    0             @goto29772
+0     16   0    0             @const1233
+0     16   0    0             @const1234
+0     18   0    0             @const1235
+0     24   0    0             @const1236
+0     34   0    0             @goto31598
 0    148   0    6    485  6.6  OtroPunto
 0   2614   4   43   3436 14.2  Soldando
 0     58   0    4             @DTOF
 0    102   0    3    330  5.1  Terminado
-0   1494   2   69   3668  9.0  MAIN
-0     96   0    0             @goto29977
+0   1490   2   69   3668  9.0  MAIN
+0     96   0    0             @goto31913
  Inline         1             @cinit1
 
 Program metrics:
@@ -340,7 +340,7 @@ Program metrics:
 00000-00002     4  0  
 00004-00006     0  4  
 00008-000D0   202  0  
-000D2-07FDA  29886  2636  
+000D2-07FDA  29878  2644  
 07FDC-07FFE    36  0  
 
 

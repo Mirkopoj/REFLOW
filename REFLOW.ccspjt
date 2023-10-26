@@ -1,6 +1,6 @@
 [PROJECT]
 Target=REFLOW.hex
-Processor_Text=PIC18F45K50
+Processor_Text=PIC18F25K50
 CCSVersion=5.070
 Compiler=PCH
 [Target Data]
@@ -20,10 +20,10 @@ Type=4
 7=TC77.c
 8=ST7789.c
 9=MainUtility.c
-t1=5
+t1=1
 t2=5
 t3=1
-Count=2
+Count=1
 t4=664
 t5=625
 t6=1
@@ -34,7 +34,7 @@ t9=1
 t10=1
 
 [ProjectLog]
-Days=52
+Days=53
 D1=08-06-2021
 D1_L=24
 D1_L1=[58369]Stopped Editing.
@@ -60,7 +60,7 @@ D1_L20=[83182]Started Editing.
 D1_L21=[83763]Stopped Editing.
 D1_L22=[83794]Started Editing.
 D1_L23=[84765]Stopped Editing.
-TotalEdit=2125
+TotalEdit=2126
 TotalDebug=0
 D1_E=203
 D1_D=0
@@ -963,9 +963,19 @@ D52_L5=[81821]Stopped Editing.
 D52_E=1
 D52_D=0
 D52_L6=[81833]Project Closed.
+D53=25-10-2023
+D53_L=6
+D53_L1=[83245]Project Opened.
+D53_L2=[83295]Started Editing.
+D53_L3=[83321]Stopped Editing.
+D53_E=1
+D53_D=0
+D53_L4=[83321]Project Closed.
+D53_L5=[83403]Project Opened.
+D53_L6=[83428]Project Closed.
 
 [defines]
-buildcount=1108
+buildcount=1109
 [Units]
 Count=1
 1=REFLOW (main)
